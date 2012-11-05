@@ -1,0 +1,19 @@
+{
+  "name": "buster-jquery-assertions",
+  "version": "0.0.0",
+  "main": [
+    "./buster-jquery-assertions.js"
+  ],
+  "dependencies": {
+    "buster.js": "latest"
+  },
+  "readme": "buster-jquery-assertions\n========================\n\nBuster.js jQuery Assertions\n\n# Provided Assertions\n\n1.   **containsElement** - bdd alias *toContainElement*\n2.   **haveText** - bdd alias *toHaveText*\n3.   **isEmpty** - bdd alias *toBeEmpty*\n4.   **exit** - bdd alias *toExist*\n5.   **haveClass** - bdd alias *toHaveClass*\n6.   **haveValue** - bdd alias *toHaveValue*\n7.   **haveAttr** - bdd alias *toHaveAttr*\n8.   **hidden** - bdd alias *toBeHidden*\n\n",
+  "readmeFilename": "README.md",
+  "_id": "buster-jquery-assertions@0.0.1",
+  "description": "buster-jquery-assertions ========================",
+  "commit": "93ec298220717e4e759a96e85b823bad379952fc",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blittle/buster-jquery-assertions.git"
+  }
+}

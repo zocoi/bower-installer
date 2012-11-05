@@ -1,0 +1,8 @@
+{
+  "name": "jquery.transit",
+  "version": "0.1.3",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rstacruz/jquery.transit.git"
+  }
+}

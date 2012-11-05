@@ -1,0 +1,25 @@
+{
+    "name": "bower-installer",
+    "version": "0.0.1",
+    "description": "an executable for extracting and installing resources from bower components",
+    "main": "bower-install",
+    "dependencies": {
+        "bower" : "~0.3.2",
+        "file-utils" : "~0.2.6",
+        "colors" : "~0.6.0-1",
+        "lodash" : "~0.9.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "keywords": [
+        "bower",
+        "extract",
+        "install",
+        "dependencies"
+    ],
+    "author": "Bret Little",
+    "license": "MIT",
+    "bin" : "bower-installer"
+}

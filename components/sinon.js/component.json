@@ -1,0 +1,15 @@
+{
+  "name": "sinon.js",
+  "version": "0.0.0",
+  "main": "./sinon.js",
+  "dependencies": {},
+  "readme": "sinon.js\n========\n\nSinon.js Proxy repo for Bower\n\nFor more information on sinon.js: http://sinonjs.org/\n",
+  "readmeFilename": "README.md",
+  "_id": "sinon.js@1.5.0",
+  "description": "sinon.js ========",
+  "commit": "6ca23f5434a06dfd0b6c5fcdc8c81cb27c89b832",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blittle/sinon.js.git"
+  }
+}

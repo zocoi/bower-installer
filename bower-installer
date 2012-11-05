@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+
+var _ = require('lodash');
+var File = require('file-utils').File;
+var colors = require('colors');
+var bower = require('bower');
+var fs = require('fs');
+var path = require('path');
+var cfg = require('./component.json').install;
+ 
+var installPath = new File(cfg.path);
+
+var installDependency = function(dep, key) {
+    
+    var f_s = cfg.sources && cfg.sources[key] ? cfg.sources[key] : dep;
+    var f = new File(f_s); 
+    var path = cfg.path + '/' + f.getName();
+
+    f.copy( path, function(error, copied) {
+        if(!error && copied) {
+            console.log(('\t' + key + ' : ' + path).green);
+        } else {
+            console.log(('\t' + key + ' : ' + path).red); 
+        }
+    });
+};
+
+installPath.remove(function() {
+    installPath.createDirectory();
+});
+
+bower.commands
+  .list({paths: true})
+  .on('data', function (data) {
+    console.log('Installing: ');
+
+    _.each(data, function(dep, key) {
+
+        if(_.isArray(dep)) {
+            _.each(dep, function(subDep) {
+                installDependency(subDep, key); 
+            });
+        } else {
+           installDependency(dep, key); 
+        }
+    });
+
+  });
+

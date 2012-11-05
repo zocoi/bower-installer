@@ -1,0 +1,17 @@
+{
+  "name": "backbone-nested",
+  "version": "0.0.0",
+  "main": "./backbone-nested.js",
+  "dependencies": {
+    "backbone": "~0.9.2"
+  },
+  "readme": "Backbone Nested Models\n======================\n\nBackbone nested models is meant to be a lightweight and simple solution for nested models in [Backbone.js](http://backbonejs.org/). It gives you\nnothing fancy, just simple relations (662 bytes minified/gzipped). If you are looking for a larger more complex and exhaustive solution checkout\n[Backbone-relational](https://github.com/PaulUithol/Backbone-relational) by Paul Uithol.\n\n## Options\n\nEach `Backbone.Model` can contain an array of `relations`. Each Relation defines a nested model or collection which will\nbe represented by that attribute.\n\n```javascript\n\nvar Book = Backbone.Model.extend({\n    relations: {\n      \"author\": Backbone.Model\n    }\n});\n\nvar book = new Book();\n\nbook.set({\n  \"author\": {\n    \"name\" : \"Heber J. Grant\",\n    \"title\": \"President\",\n    \"age\"  : \"47\"\n  },\n  \"pages\": 450\n});\n\nvar author = book.get(\"author\");\n\nauthor.get(\"name\") === \"Heber J. Grant\";\nauthor.parent.get('pages') === 450;\n\n```\nWhenever set is called on a model, or a json response is saved to a model, if a relation exists for one of the attributes\nbeing saved, a new instance of that relation will be created or if it already exists, it will be updated. Also note that\nthe relation will be given a backwards reference to its parent model through the keyword `parent`.\n\nCollections work similarly except that the backwards reference from a model which is part of a colleciton which is a \nrelation of a model is `collection.parent`.\n\n```javascript\n\nvar Package = Backbone.Model.extend({\n    relations: {\n      \"documents\": Backbone.Collection\n    }\n});\n\nvar pkg = new Package();\n\npkg.set({\n  \"documents\": [\n    {id:1, name: \"Document 1\"},\n    {id:2, name: \"Document 2\"},\n  ],\n  \"packageTitle\": \"My Package\"\n});\n\nvar document1 = pkg.get(\"documents\").get(1);\n\ndocument1.get(\"name\") === \"Document 1\";\n\ndocument1.collection.parent.get(\"packageTitle\") === \"My Package\";\n\n```\n\nBackbone nested models will never recreate an entire relation as an attribute to a model. It only creates the relation\nonce and thereafter updates the collection or model representing the relation. This is important because event bindings\nor cached references may be pointing to the previous relations, and if they are recreated those references would be lost.",
+  "readmeFilename": "README.md",
+  "_id": "backbone-nested-models@0.0.1",
+  "description": "Backbone Nested Models ======================",
+  "commit": "84532996c4e6a94af41e91b4cf3d0b7c1442c924",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blittle/backbone-nested.git"
+  }
+}
