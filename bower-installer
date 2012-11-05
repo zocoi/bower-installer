@@ -6,7 +6,7 @@ var colors = require('colors');
 var bower = require('bower');
 var fs = require('fs');
 var path = require('path');
-var cfg = require('./component.json').install;
+var cfg = require(path.join(__dirname, './component.json')).install;
  
 var installPath = new File(cfg.path);
 
