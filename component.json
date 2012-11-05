@@ -30,7 +30,8 @@
             "jquery-mousewheel"  : "components/jquery-mousewheel/jquery.mousewheel.js",
             "jquery.transit"     : "components/jquery.transit/jquery.transit.js",
             "json2"              : "components/json2/json2.js",
-            "requirejs"          : "components/requirejs/require.js"
+            "requirejs"          : "components/requirejs/require.js",
+            "underscore.string"  : "components/underscore.string/dist/underscore.string.min.js"
         }
     }
 }
