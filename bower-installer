@@ -13,10 +13,9 @@ var installPath = new File(cfg.path);
 var installDependency = function(dep, key) {
     
     var f_s = cfg.sources && cfg.sources[key] ? cfg.sources[key] : dep;
-    var f = new File( f_s ); 
-    var f_path = cfg.path + '/' + f.getName();
+    var f = new File( '../../' + f_s ); 
+    var f_path = '../../' + cfg.path + '/' + f.getName();
 
-console.log(f_s, f.getPath(), f.getOriginalPath());
     f.copy( f_path, function(error, copied) {
         if(!error && copied) {
             console.log(('\t' + key + ' : ' + f_path).green);
