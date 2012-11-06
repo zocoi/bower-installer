@@ -6,23 +6,33 @@ var colors = require('colors');
 var bower = require('bower');
 var fs = require('fs');
 var path = require('path');
-var cfg = require('../../component.json').install;
+var cfg = require(path.join(__dirname, '..', '..','component.json')).install;
  
 var installPath = new File('../../' + cfg.path);
 
-var installDependency = function(dep, key) {
-    
-    var f_s = cfg.sources && cfg.sources[key] ? cfg.sources[key] : dep;
-    var f = new File( '../../' + f_s ); 
-    var f_path = '../../' + cfg.path + '/' + f.getName();
+var installDependency = function(deps, key) {
 
-    f.copy( f_path, function(error, copied) {
-        if(!error && copied) {
-            console.log(('\t' + key + ' : ' + f_path).green);
-        } else {
-            console.log(('Error\t' + dep + ' : ' + f_path).red); 
-            console.log('\t\t' + error);
-        }
+    deps = cfg.sources && cfg.sources[key] ? cfg.sources[key] : deps;
+
+    if(!_.isArray(deps)) {
+        deps = [ deps ];
+    }
+
+    _.each(deps, function(dep) {
+
+        var f_s = dep;
+        var f = new File( '../../' + f_s ); 
+        var f_path = '../../' + cfg.path + '/' + f.getName();
+
+        f.copy( f_path, function(error, copied) {
+            if(!error && copied) {
+                console.log(('\t' + key + ' : ' + f_path).green);
+            } else {
+                console.log(('Error\t' + dep + ' : ' + f_path).red); 
+                console.log('\t\t' + error);
+            }
+        });
+
     });
 };
 
