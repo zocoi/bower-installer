@@ -26,8 +26,39 @@ var installDependency = function(deps, key) {
     _.each(deps, function(dep) {
 
         var f_s = dep;
-        var f = new File( basePath + '/' + f_s ); 
+        var f_name = basePath + '/' + f_s;
+        var f = new File( f_name );
         var f_path = basePath + '/' + cfg.path + '/' + f.getName();
+
+        // If it is a directory lets try to read from package.json file
+        if( fs.lstatSync( f_name ).isDirectory() ) {
+
+            var packagejson = f_name + '/' + "package.json";
+
+            // we want the build to continue as default if case something fails
+            try {
+                // read package.json file
+                var file = fs.readFileSync(packagejson).toString('ascii')
+
+                // parse file
+                var filedata = JSON.parse(file);
+
+                // path to file from main property inside package.json
+                var mainpath = f_name + '/' + filedata.main;
+
+                // if we have a file reference on package.json to main property and it is a file
+                if( fs.lstatSync( mainpath ).isFile() ) {
+
+                    f = new File( mainpath );
+                    f_path = basePath + '/' + cfg.path + '/' + filedata.main;
+                }
+
+            }
+            catch( error ) {
+                // We wont need to show log error, if package.json doesnt exist default to download folder
+                // console.log(error);
+            }
+        }
 
         f.copy( f_path, function(error, copied) {
             if(!error && copied) {
