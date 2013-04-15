@@ -12,11 +12,11 @@ functionality for installing specific "built" components for the client.
   "name" : "test",
   "version": "0.1",
   "dependencies" : {
-    "jquery-ui" : "latest"
+    "backbone" : "latest"
   }
 }
 ```
-If `bower install` is run on this configuration file, the entire jquery-ui repository will be pulled down
+If `bower install` is run on this configuration file, the entire backbone repository will be pulled down
 and copied into a components directory. This repository is quite large, when probably only a built js and css
 file are needed.  Bower conveniently provides the `bower list --paths` command to list the actual main files associated
 with the components (if the component doesn't define a main, then the whole repository is listed instead).
@@ -30,7 +30,7 @@ your component.json an `install` key and `path` attribute:
   "name" : "test",
   "version": "0.1",
   "dependencies" : {
-    "jquery-ui" : "latest"
+    "backbone" : "latest"
   },
   "install" : {
     "path" : "some/path"
@@ -49,7 +49,7 @@ From the terminal in the same directory as your component.json file, enter:
 bower-installer
 ```
 
-After executing this, `jquery.js` and `jquery-ui.js` will exist under `some/path` relative to the location of your
+After executing this, `backbone.js` will exist under `some/path` relative to the location of your
 component.json file.
 
 #Overriding main files
@@ -62,7 +62,7 @@ can override an existing main file path or provide a non-existant one:
   "name" : "test",
   "version": "0.1",
   "dependencies" : {
-    "jquery-ui" : "latest",
+    "backbone" : "latest",
     "requirejs" : "latest"
   },
   "install" : {
@@ -73,7 +73,7 @@ can override an existing main file path or provide a non-existant one:
   }
 }
 ```
-If bower installer is run on this configuration, `require.js`, `jquery.js`, and `jquery-ui.js` will all appear under
+If bower installer is run on this configuration, `require.js` and `jquery-ui.js` will all appear under
 `some/path` relative to your component.json file.
 
 #Install multiple main files
