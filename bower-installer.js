@@ -13,7 +13,14 @@ if(!cfg || !cfg.path) {
     console.log(("bower-installer error").red + " component.json must contain a valid install path");
 }
 
-var installPath = new File(basePath + '/' + cfg.path);
+var installPaths = _.isArray(cfg.path) ? cfg.path : [cfg.path];
+
+console.log(installPaths, cfg.Path);
+
+var installPathFiles =  _.map( installPaths, 
+    function(path) {
+        return new File(basePath + '/' + path);
+    });   
 
 var installDependency = function(deps, key) {
 
@@ -25,55 +32,63 @@ var installDependency = function(deps, key) {
 
     _.each(deps, function(dep) {
 
-        var f_s = dep;
-        var f_name = basePath + '/' + f_s;
-        var f = new File( f_name );
-        var f_path = basePath + '/' + cfg.path + '/' + f.getName();
+        _.each(installPaths, function(path) {
 
-        // If it is a directory lets try to read from package.json file
-        if( fs.lstatSync( f_name ).isDirectory() ) {
+            var f_s = dep;
+            var f_name = basePath + '/' + f_s;
+            var f = new File( f_name );
+            var f_path = basePath + '/' + path + '/' + f.getName();
 
-            var packagejson = f_name + '/' + "package.json";
+            // If it is a directory lets try to read from package.json file
+            if( fs.lstatSync( f_name ).isDirectory() ) {
 
-            // we want the build to continue as default if case something fails
-            try {
-                // read package.json file
-                var file = fs.readFileSync(packagejson).toString('ascii')
+                var packagejson = f_name + '/' + "package.json";
 
-                // parse file
-                var filedata = JSON.parse(file);
+                // we want the build to continue as default if case something fails
+                try {
+                    // read package.json file
+                    var file = fs.readFileSync(packagejson).toString('ascii')
 
-                // path to file from main property inside package.json
-                var mainpath = f_name + '/' + filedata.main;
+                    // parse file
+                    var filedata = JSON.parse(file);
 
-                // if we have a file reference on package.json to main property and it is a file
-                if( fs.lstatSync( mainpath ).isFile() ) {
+                    // path to file from main property inside package.json
+                    var mainpath = f_name + '/' + filedata.main;
 
-                    f = new File( mainpath );
-                    f_path = basePath + '/' + cfg.path + '/' + filedata.main;
+                    // if we have a file reference on package.json to main property and it is a file
+                    if( fs.lstatSync( mainpath ).isFile() ) {
+
+                        f = new File( mainpath );
+                        f_path = basePath + '/' + path + '/' + filedata.main;
+                    }
+
                 }
+                catch( error ) {
+                    // We wont need to show log error, if package.json doesnt exist default to download folder
+                    // console.log(error);
+                }
+            }
 
-            }
-            catch( error ) {
-                // We wont need to show log error, if package.json doesnt exist default to download folder
-                // console.log(error);
-            }
-        }
+            f.copy( f_path, function(error, copied) {
+                if(!error && copied) {
+                    console.log(('\t' + key + ' : ' + f_path).green);
+                } else {
+                    console.log(('Error\t' + dep + ' : ' + f_path).red); 
+                    console.log('\t\t' + error);
+                }
+            });
 
-        f.copy( f_path, function(error, copied) {
-            if(!error && copied) {
-                console.log(('\t' + key + ' : ' + f_path).green);
-            } else {
-                console.log(('Error\t' + dep + ' : ' + f_path).red); 
-                console.log('\t\t' + error);
-            }
         });
 
     });
 };
 
-installPath.remove(function() {
-    installPath.createDirectory();
+_.each(installPathFiles, function(file) {
+    (function(file) {
+        file.remove(function() {
+            file.createDirectory();
+        });
+    })(file);
 });
 
 bower.commands

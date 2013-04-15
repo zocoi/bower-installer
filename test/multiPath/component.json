@@ -1,0 +1,34 @@
+{
+    "name": "sf2",
+    "version": "2.0.0",
+    "main": "./src/main/webapp/app/index.html",
+    "dependencies": {
+        "jquery-ui"                 : "latest",
+        "jquery.transit"            : "latest",
+        "datejs"                    : "latest",
+        "d3"                        : "latest",
+        "backbone"                  : "latest",
+        "backbone-nested"           : "latest",
+        "requirejs"                 : "latest",
+        "underscore.string"         : "latest",
+        "json2"                     : "latest",
+        "requirejs-text"            : "latest",
+        "speak.js"                  : "latest",
+        "buster.js"                 : "latest",
+        "buster-jquery-assertions"  : "latest",
+        "jquery.jscrollpane"        : "latest",
+        "jquery-mousewheel"         : "latest"
+    },
+    "install": {
+        "path": ["build/src", "test/src"],
+        "sources": {
+            "datejs"             : "components/datejs/build/date.js",
+            "jquery-mousewheel"  : "components/jquery-mousewheel/jquery.mousewheel.js",
+            "jquery.transit"     : "components/jquery.transit/jquery.transit.js",
+            "json2"              : "components/json2/json2.js",
+            "requirejs"          : "components/requirejs/require.js",
+            "underscore.string"  : "components/underscore.string/dist/underscore.string.min.js",
+            "jquery-ui"          : "components/jquery-ui/ui/jquery-ui.custom.js"
+        }
+    }
+}
