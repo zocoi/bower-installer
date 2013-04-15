@@ -1,3 +1,7 @@
 components/**
 node_modules/**
 build/**
+test/components/**/*
+test/components/*.*
+test/build/**/*
+test/build/*.*

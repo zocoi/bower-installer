@@ -6,7 +6,6 @@
         "jquery-ui"                 : "latest",
         "jquery.transit"            : "latest",
         "datejs"                    : "latest",
-        "jquery-file-upload"        : "git://github.com/blittle/jQuery-File-Upload.git",
         "d3"                        : "latest",
         "backbone"                  : "latest",
         "backbone-nested"           : "latest",
@@ -14,24 +13,22 @@
         "underscore.string"         : "latest",
         "json2"                     : "latest",
         "requirejs-text"            : "latest",
-        "jquery.atmosphere"         : "latest",
         "speak.js"                  : "latest",
         "buster.js"                 : "latest",
         "buster-jquery-assertions"  : "latest",
         "jquery.jscrollpane"        : "latest",
-        "sinon.js"                  : "latest",
         "jquery-mousewheel"         : "latest"
     },
     "install": {
         "path": "build/src",
         "sources": {
             "datejs"             : "components/datejs/build/date.js",
-            "jquery-file-upload" : "components/jquery-file-upload/js/jquery.fileupload.js",
             "jquery-mousewheel"  : "components/jquery-mousewheel/jquery.mousewheel.js",
             "jquery.transit"     : "components/jquery.transit/jquery.transit.js",
             "json2"              : "components/json2/json2.js",
             "requirejs"          : "components/requirejs/require.js",
-            "underscore.string"  : "components/underscore.string/dist/underscore.string.min.js"
+            "underscore.string"  : "components/underscore.string/dist/underscore.string.min.js",
+            "jquery-ui"          : "components/jquery-ui/ui/jquery-ui.custom.js"
         }
     }
 }
