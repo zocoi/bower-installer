@@ -20,7 +20,10 @@
         "jquery-mousewheel"         : "latest"
     },
     "install": {
-        "path": ["build/src", "test/src"],
+        "path": {
+            "js": "build/src",
+            "css": "build/css"
+        },
         "sources": {
             "datejs"             : "components/datejs/build/date.js",
             "jquery-mousewheel"  : "components/jquery-mousewheel/jquery.mousewheel.js",
