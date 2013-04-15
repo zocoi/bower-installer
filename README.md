@@ -91,8 +91,33 @@ an `Array` instead of a `String` inside the sources hash:
     "path" : "some/path",
     "sources" : {
       "jquery-ui" : [
-        "components/jquery-ui/ui/jquery-ui.js",
-        "components/jquery-ui/themes/base/minified/jquery-ui.min.css"
+        "components/jquery-ui/ui/jquery-ui.custom.js",
+        "components/jquery-ui/themes/start/jquery-ui.css"
+      ]
+    }
+  }
+}
+```
+
+#Install files to multiple locations
+Files can be installed to multiple locations based upon file type. Do so by modifying the `path` to be a map of file-type
+ locations. Example:
+ ```javascript
+{
+  "name" : "test",
+  "version": "0.1",
+  "dependencies" : {
+    "jquery-ui" : "latest"
+  },
+  "install" : {
+    "path" : {
+      "css": "src/css",
+      "js": "src/js"
+    },
+    "sources" : {
+      "jquery-ui" : [
+        "components/jquery-ui/ui/jquery-ui.custom.js",
+        "components/jquery-ui/themes/start/jquery-ui.css"
       ]
     }
   }
