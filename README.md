@@ -73,7 +73,7 @@ can override an existing main file path or provide a non-existant one:
   }
 }
 ```
-If bower installer is run on this configuration, `require.js` and `jquery-ui.js` will all appear under
+If bower installer is run on this configuration, `require.js` and `backbone.js` will all appear under
 `some/path` relative to your component.json file.
 
 #Install multiple main files
