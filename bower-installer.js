@@ -15,8 +15,6 @@ if(!cfg || !cfg.path) {
 
 var installPaths = _.isArray(cfg.path) ? cfg.path : [cfg.path];
 
-console.log(installPaths, cfg.Path);
-
 var installPathFiles =  _.map( installPaths, 
     function(path) {
         return new File(basePath + '/' + path);
