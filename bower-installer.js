@@ -7,10 +7,10 @@ var bower = require('bower');
 var fs = require('fs');
 var path = require('path');
 var basePath = process.cwd();
-var cfg = require(path.join(basePath,'component.json')).install;
+var cfg = require(path.join(basePath,'bower.json')).install;
  
 if(!cfg || !cfg.path) {
-    console.log(("bower-installer error").red + " component.json must contain a valid install path");
+    console.log(("bower-installer error").red + " bower.json must contain a valid install path");
 }
 
 var paths = _.isString(cfg.path) ? {all: cfg.path} : cfg.path;

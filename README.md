@@ -22,8 +22,8 @@ file are needed.  Bower conveniently provides the `bower list --paths` command t
 with the components (if the component doesn't define a main, then the whole repository is listed instead).
 
 #Bower Installer
-Bower installer provides an easy way for the main files to be installed or moved to one or more locations. Simply add to 
-your component.json an `install` key and `path` attribute: 
+Bower installer provides an easy way for the main files to be installed or moved to one or more locations. Simply add to
+your bower.json an `install` key and `path` attribute:
 
 ```javascript
 {
@@ -44,17 +44,17 @@ Install bower-installer by executing
 npm install -g bower-installer
 ```
 
-From the terminal in the same directory as your component.json file, enter:
+From the terminal in the same directory as your bower.json file, enter:
 ```bash
 bower-installer
 ```
 
 After executing this, `backbone.js` will exist under `some/path` relative to the location of your
-component.json file.
+bower.json file.
 
 #Overriding main files
-A lot of registered components for bower do not include component.json configuration. Therefore, bower does not know
-about any "main files" and therefore, by default bower-installer doesn't know about them either. Bower-installer 
+A lot of registered components for bower do not include bower.json configuration. Therefore, bower does not know
+about any "main files" and therefore, by default bower-installer doesn't know about them either. Bower-installer
 can override an existing main file path or provide a non-existant one:
 
 ```javascript
@@ -74,7 +74,7 @@ can override an existing main file path or provide a non-existant one:
 }
 ```
 If bower installer is run on this configuration, `require.js` and `backbone.js` will all appear under
-`some/path` relative to your component.json file.
+`some/path` relative to your bower.json file.
 
 #Install multiple main files
 For one reason or another you may want to install multiple files from a single component. You can do this by providing
