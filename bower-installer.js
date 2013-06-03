@@ -7,7 +7,14 @@ var bower = require('bower');
 var fs = require('fs');
 var path = require('path');
 var basePath = process.cwd();
-var cfg = require(path.join(basePath,'bower.json')).install;
+var cfg;
+
+// Load configuration file
+try {
+    cfg = require(path.join(basePath,'bower.json')).install;
+} catch(e) {
+    cfg = require(path.join(basePath,'component.json')).install;
+}
  
 if(!cfg || !cfg.path) {
     console.log(("bower-installer error").red + " bower.json must contain a valid install path");
@@ -16,7 +23,7 @@ if(!cfg || !cfg.path) {
 var paths = _.isString(cfg.path) ? {all: cfg.path} : cfg.path;
 
 var installPathFiles =  _.map( paths, 
-    function(path) {
+    function(path) {        
         return new File(basePath + '/' + path);
     });   
 
@@ -81,28 +88,43 @@ var installDependency = function(deps, key) {
     });
 };
 
+
+process.stdout.write('Setting up install paths...');
+
+var setup = 0;
 _.each(installPathFiles, function(file) {
     (function(file) {
         file.remove(function() {
-            file.createDirectory();
+            file.createDirectory(function() {setup++;});
         });
     })(file);
 });
 
-bower.commands
-  .list({paths: true})
-  .on('data', function (data) {
-    console.log('Installing: ');
+setTimeout(function() {
+    if(setup === installPathFiles.length) {
+        process.stdout.write(("Finished\r\n").green);
+        startInstallations();
+    } else {
+        setTimeout(arguments.callee, 50);
+    }
+},50);
 
-    _.each(data, function(dep, key) {
+function startInstallations() {
+    bower.commands
+      .list({paths: true})
+      .on('data', function (data) {
+        console.log('Installing: ');
 
-        if(_.isArray(dep)) {
-            _.each(dep, function(subDep) {
-                installDependency(subDep, key); 
-            });
-        } else {
-           installDependency(dep, key); 
-        }
-    });
+        _.each(data, function(dep, key) {
 
-  });
+            if(_.isArray(dep)) {
+                _.each(dep, function(subDep) {
+                    installDependency(subDep, key); 
+                });
+            } else {
+               installDependency(dep, key); 
+            }
+        });
+
+      });
+}
