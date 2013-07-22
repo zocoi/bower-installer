@@ -39,9 +39,17 @@ var installDependency = function(deps, key) {
 
         var f_s = dep;
         var f_name = basePath + '/' + f_s;
-        var f = new File( f_name );      
+        var f = new File( f_name );
+        var path;
         // If the configured paths is a map, use the path for the given file extension  
-        var path = paths.all ? paths.all : paths[f.getExtension()];        
+        if( paths.all ) {
+            path = paths.all + '/' + key;
+            directory = new File(basePath + '/' + path);
+            directory.createDirectory();
+        } else {
+            path = paths[f.getExtension()];
+        }
+
         var f_path = basePath + '/' + path + '/' + f.getName();
 
         // If it is a directory lets try to read from package.json file
@@ -64,8 +72,15 @@ var installDependency = function(deps, key) {
                 if( fs.lstatSync( mainpath ).isFile() ) {
 
                     f = new File( mainpath );
+                    var path;
                     // Update the output path with the correct file extension
-                    path = paths.all ? paths.all : paths[f.getExtension()];  
+                    if( paths.all ) {
+                        path = paths.all + '/' + key;
+                        directory = new File(basePath + '/' + path);
+                        directory.createDirectory();
+                    } else {
+                        path = paths[f.getExtension()];
+                    }
                     f_path = basePath + '/' + path + '/' + filedata.main;
                 }
 
