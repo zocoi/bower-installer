@@ -15,17 +15,17 @@ try {
 } catch(e) {
     cfg = require(path.join(basePath,'component.json')).install;
 }
- 
+
 if(!cfg || !cfg.path) {
     console.log(("bower-installer error").red + " bower.json must contain a valid install path");
 }
 
 var paths = _.isString(cfg.path) ? {all: cfg.path} : cfg.path;
 
-var installPathFiles =  _.map( paths, 
+var installPathFiles =  _.map( paths,
     function(path) {        
         return new File(basePath + '/' + path);
-    });   
+    });
 
 var installDependency = function(deps, key) {
 
@@ -35,7 +35,7 @@ var installDependency = function(deps, key) {
         deps = [ deps ];
     }
 
-    _.each(deps, function(dep) {        
+    _.each(deps, function(dep) {
 
         var f_s = dep;
         var f_name = basePath + '/' + f_s;
@@ -95,10 +95,10 @@ var installDependency = function(deps, key) {
             if(!error && copied) {
                 console.log(('\t' + key + ' : ' + f_path).green);
             } else {
-                console.log(('Error\t' + dep + ' : ' + f_path).red); 
+                console.log(('Error\t' + dep + ' : ' + f_path).red);
                 console.log('\t\t' + error);
             }
-        });        
+        });
 
     });
 };
@@ -134,7 +134,7 @@ function startInstallations() {
 
             if(_.isArray(dep)) {
                 _.each(dep, function(subDep) {
-                    installDependency(subDep, key); 
+                    installDependency(subDep, key);
                 });
             } else {
                installDependency(dep, key); 
