@@ -28,17 +28,26 @@ var installPathFiles =  _.map( paths,
     });   
 
 var installDependency = function(deps, key) {
+    var base;
 
     deps = cfg.sources && cfg.sources[key] ? cfg.sources[key] : deps;
 
-    if(!_.isArray(deps)) {
-        deps = [ deps ];
-    }
+    // This handles the fact that the bower guys decided to stupidly return multiple paths paths like so:
+    // '/home/blittle/dev/bower-installer/test/full/bower_components/jquery.jscrollpane/jquery.jscrollpane.js,./jquery.jscrollpane.css'
+    deps = _.map(deps.split(','), function(p, i) {
+      if(i === 0) {
+        base = p.substring(0, p.lastIndexOf('/'));
+        return p;
+      }
+      else {
+        return base + p.substring(1);
+      }
+    });    
 
     _.each(deps, function(dep) {        
 
         var f_s = dep;
-        var f_name = basePath + '/' + f_s;
+        var f_name = f_s.indexOf(basePath) === 0 ? f_s : basePath + '/' + f_s;
         var f = new File( f_name );      
         // If the configured paths is a map, use the path for the given file extension  
         var path = paths.all ? paths.all : paths[f.getExtension()];        
@@ -109,22 +118,39 @@ setTimeout(function() {
     }
 },50);
 
-function startInstallations() {
-    bower.commands
-      .list({paths: true})
-      .on('data', function (data) {
-        console.log('Installing: ');
+function startInstallations() {    
 
-        _.each(data, function(dep, key) {
+  process.stdout.write('Running bower install...');
 
-            if(_.isArray(dep)) {
-                _.each(dep, function(subDep) {
-                    installDependency(subDep, key); 
-                });
-            } else {
-               installDependency(dep, key); 
-            }
+  bower.commands
+    .install()
+    .on('end', function (installed) {
+      process.stdout.write(("Finished\r\n").green);
+
+      bower.commands
+        .list({paths: true})
+        .on('end', function (data) {
+          console.log('Installing: ');
+
+          _.each(data, function(dep, key) {
+
+              if(_.isArray(dep)) {
+                  _.each(dep, function(subDep) {
+                      installDependency(subDep, key); 
+                  });
+              } else {
+                 installDependency(dep, key); 
+              }
+          });
+
+        })
+        .on('error', function(error) {
+          console.error(error);
         });
 
-      });
+    })
+    .on('error', function(error) {
+      process.stdout.write(("Error\r\n").red);
+      console.error(error);
+    });    
 }
