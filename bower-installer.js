@@ -28,22 +28,31 @@ var installPathFiles =  _.map( paths,
     });   
 
 var installDependency = function(deps, key) {
-    var base;
-
-    deps = cfg.sources && cfg.sources[key] ? cfg.sources[key] : deps;
-
-    // This handles the fact that the bower guys decided to stupidly return multiple paths paths like so:
-    // '/home/blittle/dev/bower-installer/test/full/bower_components/jquery.jscrollpane/jquery.jscrollpane.js,./jquery.jscrollpane.css'
-    deps = _.map(deps.split(','), function(p, i) {
-      if(i === 0) {
-        base = p.substring(0, p.lastIndexOf('/'));
-        return p;
-      }
-      else {
-        return base + p.substring(1);
-      }
-    });    
-
+    var base, other;
+    
+    if(cfg.sources && cfg.sources[key]){
+        // local path, so should work
+        deps = cfg.sources[key];
+    }
+    else {
+        // This handles the fact that the bower guys decided to stupidly return multiple paths paths like so:
+        // '/home/blittle/dev/bower-installer/test/full/bower_components/jquery.jscrollpane/jquery.jscrollpane.js,./jquery.jscrollpane.css'
+        deps = _.map(deps.split(','), function(p, i) {
+          if(i === 0) {
+            base = p.split('/');
+            return p;
+          }
+          else {
+            other = p.split('/');
+            if (other[0] == '.'){other.splice(0,1);}
+            return (base.slice(0,base.length - other.length).concat(other)).join('/');
+          }
+        });
+    }    
+    
+    if(!_.isArray(deps))
+        deps = [ deps ];
+    
     _.each(deps, function(dep) {        
 
         var f_s = dep;
@@ -131,7 +140,7 @@ function startInstallations() {
         .list({paths: true})
         .on('end', function (data) {
           console.log('Installing: ');
-
+          
           _.each(data, function(dep, key) {
 
               if(_.isArray(dep)) {
