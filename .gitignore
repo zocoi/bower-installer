@@ -15,3 +15,5 @@ test/multiPath/build/**/*
 test/multiPath/build/*.*
 test/multiPath/test/**/*
 test/multiPath/test/*.*
+test/bootstrap/build/*
+test/bootstrap/bower_components/*
