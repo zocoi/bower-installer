@@ -1,12 +1,12 @@
 {
   "name": "bower-installer",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "preferGlobal": "true",
   "description": "Tool for installing bower dependencies that won't include entire repos",
   "main": "bower-installer.js",
   "dependencies": {
     "file-utils": "~0.2.6",
-    "bower": "~1.0.0",
+    "bower": "https://github.com/blittle/bower/archive/v1.0.1.tar.gz",
     "colors": "~0.6.0-1",
     "lodash": "~0.9.1"
   },
@@ -35,7 +35,7 @@
   "bugs": {
     "url": "https://github.com/blittle/bower-installer/issues"
   },
-  "_id": "bower-installer@0.3.0",
+  "_id": "bower-installer@0.4.0",
   "dist": {
     "shasum": "37c85aed13e693f4d1347cf7dae5e9d68a40a28e"
   },

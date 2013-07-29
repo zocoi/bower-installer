@@ -14,10 +14,12 @@
   },
   "install": {
     "path": "build/src",
-    "sources": [
-        "bower_components/bootstrap/docs/assets/css/bootstrap.css",
-        "bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css",
-        "bower_components/bootstrap/docs/assets/js/bootstrap.js"
-    ]
+    "sources": {
+        "bootstrap": [
+            "bower_components/bootstrap/docs/assets/css/bootstrap.css",
+            "bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css",
+            "bower_components/bootstrap/docs/assets/js/bootstrap.js"
+        ]
+    } 
   }
 }
