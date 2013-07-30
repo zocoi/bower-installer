@@ -8,7 +8,7 @@
     "install": {
         "path": "build/src",
         "sources": {
-            "jquery-ui" : "components/jquery-ui/ui/jquery-ui.custom.js"
+            "jquery-ui" : "bower_components/jquery-ui/ui/jquery-ui.js"
         }
     }
 }

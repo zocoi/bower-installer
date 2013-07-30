@@ -1,0 +1,25 @@
+{
+  "name": "bootstrap",
+  "version": "0.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-wysihtml5": "latest",
+    "bootstrap": "https://github.com/twitter/bootstrap"
+  },
+  "install": {
+    "path": "build/src",
+    "sources": {
+        "bootstrap": [
+            "bower_components/bootstrap/docs/assets/css/bootstrap.css",
+            "bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css",
+            "bower_components/bootstrap/docs/assets/js/bootstrap.js"
+        ]
+    } 
+  }
+}
