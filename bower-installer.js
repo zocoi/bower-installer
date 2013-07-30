@@ -47,7 +47,7 @@ var installDependency = function(deps, key) {
         var f_s = dep;
         var f_name = f_s.indexOf(basePath) === 0 ? f_s : basePath + '/' + f_s;
         var f = new File( f_name );
-		var path;
+        var path;
         // If the configured paths is a map, use the path for the given file extension
         if( paths.all ) {
             path = paths.all + '/' + key;
