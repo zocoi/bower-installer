@@ -38,7 +38,7 @@ var installDependency = function(deps, key) {
         deps = deps.split(',');
     }    
     
-    if(!_.isArray(deps))
+    if(!_.isArray(deps)) {
         deps = [ deps ];
     }
 
@@ -48,11 +48,10 @@ var installDependency = function(deps, key) {
         var f_name = f_s.indexOf(basePath) === 0 ? f_s : basePath + '/' + f_s;
         var f = new File( f_name );
 		var path;
-        // If the configured paths is a map, use the path for the given file extension        
-		if( paths.all ) {
+        // If the configured paths is a map, use the path for the given file extension
+        if( paths.all ) {
             path = paths.all + '/' + key;
-            directory = new File(basePath + '/' + path);
-            directory.createDirectory();
+            new File(basePath + '/' + path).createDirectory();
         } else {
             path = paths[f.getExtension()];
         }
@@ -82,8 +81,7 @@ var installDependency = function(deps, key) {
                     // Update the output path with the correct file extension
                     if( paths.all ) {
                         path = paths.all + '/' + key;
-                        directory = new File(basePath + '/' + path);
-                        directory.createDirectory();
+                        new File(basePath + '/' + path).createDirectory();
                     } else {
                         path = paths[f.getExtension()];
                     }
@@ -164,5 +162,5 @@ function startInstallations() {
     .on('error', function(error) {
       process.stdout.write(("Error\r\n").red);
       console.error(error);
-    });    
+    });
 }
