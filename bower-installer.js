@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
 var _ = require('lodash');
-var File = require('file-utils').File;
+var fileLib = require("node-fs");
 var colors = require('colors');
 var bower = require('bower');
 var fs = require('fs');
 var path = require('path');
+var pathLib = path;
 var basePath = process.cwd();
 var cfg;
+var pathSep = '/';
 
 // Load configuration file
 try {
@@ -24,7 +26,7 @@ var paths = _.isString(cfg.path) ? {all: cfg.path} : cfg.path;
 
 var installPathFiles =  _.map( paths,
     function(path) {        
-        return new File(basePath + '/' + path);
+        return (basePath + pathSep + path);
     });
 
 var installDependency = function(deps, key) {
@@ -45,23 +47,22 @@ var installDependency = function(deps, key) {
     _.each(deps, function(dep) {
 
         var f_s = dep;
-        var f_name = f_s.indexOf(basePath) === 0 ? f_s : basePath + '/' + f_s;
-        var f = new File( f_name );
+        var f_name = f_s.indexOf(basePath) === 0 ? f_s : basePath + pathSep + f_s;
         var path;
         // If the configured paths is a map, use the path for the given file extension
         if( paths.all ) {
-            path = paths.all + '/' + key;
-            new File(basePath + '/' + path).createDirectory();
+            path = paths.all + pathSep + key;
+            fileLib.mkdirSync(pathLib.normalize(basePath + pathSep + path), null, true);
         } else {
-            path = paths[f.getExtension()];
+            path = paths[getExtension(f_name)];
         }
 
-        var f_path = basePath + '/' + path + '/' + f.getName();
+        var f_path = basePath + pathSep + path + pathSep + pathLib.basename(f_name);
 
         // If it is a directory lets try to read from package.json file
         if( fs.lstatSync( f_name ).isDirectory() ) {
 
-            var packagejson = f_name + '/' + "package.json";
+            var packagejson = f_name + pathSep + "package.json";
 
             // we want the build to continue as default if case something fails
             try {
@@ -72,20 +73,17 @@ var installDependency = function(deps, key) {
                 var filedata = JSON.parse(file);
 
                 // path to file from main property inside package.json
-                var mainpath = f_name + '/' + filedata.main;
+                var mainpath = f_name + pathSep + filedata.main;
 
                 // if we have a file reference on package.json to main property and it is a file
                 if( fs.lstatSync( mainpath ).isFile() ) {
 
-                    f = new File( mainpath );
+                    f_name = mainpath;
                     // Update the output path with the correct file extension
-                    if( paths.all ) {
-                        path = paths.all + '/' + key;
-                        new File(basePath + '/' + path).createDirectory();
-                    } else {
-                        path = paths[f.getExtension()];
+                    if( !paths.all ) {
+                        path = paths[getExtension(mainpath)];
                     }
-                    f_path = basePath + '/' + path + '/' + filedata.main;
+                    f_path = basePath + pathSep + path + pathSep + filedata.main;
                 }
 
             }
@@ -95,8 +93,8 @@ var installDependency = function(deps, key) {
             }
         }
 
-        f.copy( f_path, function(error, copied) {
-            if(!error && copied) {
+        copyFile(f_name, f_path, function(error) {
+            if(!error) {
                 console.log(('\t' + key + ' : ' + f_path).green);
             } else {
                 console.log(('Error\t' + dep + ' : ' + f_path).red);
@@ -110,57 +108,90 @@ var installDependency = function(deps, key) {
 
 process.stdout.write('Setting up install paths...');
 
-var setup = 0;
 _.each(installPathFiles, function(file) {
-    (function(file) {
-        file.remove(function() {
-            file.createDirectory(function() {setup++;});
-        });
-    })(file);
+    deleteFolderRecursive(file);
+    fileLib.mkdirSync(file, null, true);
 });
 
-setTimeout(function() {
-    if(setup === installPathFiles.length) {
-        process.stdout.write(("Finished\r\n").green);
-        startInstallations();
-    } else {
-        setTimeout(arguments.callee, 50);
-    }
-},50);
+process.stdout.write(("Finished\r\n").green);
 
-function startInstallations() {    
 
-  process.stdout.write('Running bower install...');
+process.stdout.write('Running bower install...');
+
+bower.commands
+.install()
+.on('end', function (installed) {
+  process.stdout.write(("Finished\r\n").green);
 
   bower.commands
-    .install()
-    .on('end', function (installed) {
-      process.stdout.write(("Finished\r\n").green);
+    .list({paths: true})
+    .on('end', function (data) {
+      console.log('Installing: ');
+      
+      _.each(data, function(dep, key) {
 
-      bower.commands
-        .list({paths: true})
-        .on('end', function (data) {
-          console.log('Installing: ');
-          
-          _.each(data, function(dep, key) {
-
-              if(_.isArray(dep)) {
-                  _.each(dep, function(subDep) {
-                      installDependency(subDep, key); 
-                  });
-              } else {
-                 installDependency(dep, key); 
-              }
-          });
-
-        })
-        .on('error', function(error) {
-          console.error(error);
-        });
+          if(_.isArray(dep)) {
+              _.each(dep, function(subDep) {
+                  installDependency(subDep, key); 
+              });
+          } else {
+             installDependency(dep, key); 
+          }
+      });
 
     })
     .on('error', function(error) {
-      process.stdout.write(("Error\r\n").red);
       console.error(error);
     });
+
+})
+.on('error', function(error) {
+  process.stdout.write(("Error\r\n").red);
+  console.error(error);
+});
+
+
+
+function deleteFolderRecursive(path) {
+    var files = [];
+    if( fs.existsSync(path) ) {
+        files = fs.readdirSync(path);
+        files.forEach(function(file,index){
+            var curPath = path + "/" + file;
+            if(fs.statSync(curPath).isDirectory()) { // recurse
+                deleteFolderRecursive(curPath);
+            } else { // delete file
+                fs.unlinkSync(curPath);
+            }
+        });
+        fs.rmdirSync(path);
+    }
+};
+
+function getExtension(filename) {
+    return path.extname(filename||'').slice(1);
+}
+
+function copyFile(source, target, cb) {
+  var cbCalled = false;
+
+  var rd = fs.createReadStream(source);
+  rd.on("error", function(err) {
+    done(err);
+  });
+  var wr = fs.createWriteStream(target);
+  wr.on("error", function(err) {
+    done(err);
+  });
+  wr.on("close", function(ex) {
+    done();
+  });
+  rd.pipe(wr);
+
+  function done(err) {
+    if (!cbCalled) {
+      cb(err);
+      cbCalled = true;
+    }
+  }
 }
