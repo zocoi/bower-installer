@@ -52,7 +52,9 @@ var installDependency = function(deps, key) {
         // If the configured paths is a map, use the path for the given file extension
         if( paths.all ) {
             path = paths.all + pathSep + key;
-            fileLib.mkdirSync(pathLib.normalize(basePath + pathSep + path), null, true);
+            if (!fileLib.existsSync( pathLib.normalize(basePath + pathSep + path))) {
+                fileLib.mkdirSync(pathLib.normalize(basePath + pathSep + path), 0755);
+            }
         } else {
             path = paths[getExtension(f_name)];
         }
@@ -110,7 +112,9 @@ process.stdout.write('Setting up install paths...');
 
 _.each(installPathFiles, function(file) {
     deleteFolderRecursive(file);
-    fileLib.mkdirSync(file, null, true);
+    if (!fileLib.existsSync(file)) {
+        fileLib.mkdirSync(file, 0755);
+    }
 });
 
 process.stdout.write(("Finished\r\n").green);
