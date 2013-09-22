@@ -112,9 +112,7 @@ process.stdout.write('Setting up install paths...');
 
 _.each(installPathFiles, function(file) {
     deleteFolderRecursive(file);
-    if (!fileLib.existsSync(file)) {
-        fileLib.mkdirSync(file, 0755);
-    }
+    createFolderRecursive(file);
 });
 
 process.stdout.write(("Finished\r\n").green);
@@ -170,7 +168,20 @@ function deleteFolderRecursive(path) {
         });
         fs.rmdirSync(path);
     }
-};
+}
+
+function createFolderRecursive(path) {
+  var files = path.split('/');
+  var fullPath = '';
+
+  files.forEach(function(file, index) {
+    fullPath = fullPath + '/' + file;
+
+    if (!fileLib.existsSync(fullPath)) {
+      fileLib.mkdirSync(fullPath, 0755);
+    }
+  }); 
+}
 
 function getExtension(filename) {
     return path.extname(filename||'').slice(1);
