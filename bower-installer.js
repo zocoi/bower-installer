@@ -112,7 +112,7 @@ process.stdout.write('Setting up install paths...');
 
 _.each(installPathFiles, function(file) {
     deleteFolderRecursive(file);
-    createFolderRecursive(file);
+    fileLib.mkdirSync(file, 0755, true);
 });
 
 process.stdout.write(("Finished\r\n").green);
@@ -173,6 +173,7 @@ function deleteFolderRecursive(path) {
 function createFolderRecursive(path) {
   var files = path.split('/');
   var fullPath = '';
+  console.log("DEBUG", files);
 
   files.forEach(function(file, index) {
     fullPath = fullPath + '/' + file;
