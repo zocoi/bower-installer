@@ -170,20 +170,6 @@ function deleteFolderRecursive(path) {
     }
 }
 
-function createFolderRecursive(path) {
-  var files = path.split('/');
-  var fullPath = '';
-  console.log("DEBUG", files);
-
-  files.forEach(function(file, index) {
-    fullPath = fullPath + '/' + file;
-
-    if (!fileLib.existsSync(fullPath)) {
-      fileLib.mkdirSync(fullPath, 0755);
-    }
-  }); 
-}
-
 function getExtension(filename) {
     return path.extname(filename||'').slice(1);
 }
