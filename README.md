@@ -125,3 +125,26 @@ Files can be installed to multiple locations based upon file type. Do so by modi
   }
 }
 ```
+
+#Rename files during copy
+Files can be renamed when bower-installer is copying them to their new destination. Do so by modifying the `mapping` object. Example:
+ ```javascript
+{
+  "name" : "test",
+  "version": "0.1",
+  "dependencies" : {
+    "jquery-ui" : "latest"
+  },
+  "install" : {
+    "sources" : {
+      "jquery-ui" : {
+        "mapping": [
+          {"bower_components/jquery-ui/ui/jquery-ui.js": "jquery-ui.js"},
+          {"bower_components/jquery-ui/ui/minified/jquery-ui.min.js": "jquery-ui-min-new-name.js"}
+        ]
+      },
+    }
+  }
+}
+```
+

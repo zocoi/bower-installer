@@ -25,30 +25,44 @@ if(!cfg || !cfg.path) {
 var paths = _.isString(cfg.path) ? {all: cfg.path} : cfg.path;
 
 var installPathFiles =  _.map( paths,
-    function(path) {        
+    function(path) {
         return (basePath + pathSep + path);
     });
 
 var installDependency = function(deps, key) {
     var base, other;
-    
+
     if(cfg.sources && cfg.sources[key]){
         // local path, so should work
         deps = cfg.sources[key];
     }
     else {
         deps = deps.split(',');
-    }    
-    
+    }
+
+    if(deps.mapping) {
+      deps = deps.mapping;
+    }
+
     if(!_.isArray(deps)) {
         deps = [ deps ];
     }
 
     _.each(deps, function(dep) {
 
-        var f_s = dep;
-        var f_name = f_s.indexOf(basePath) === 0 ? f_s : basePath + pathSep + f_s;
-        var path;
+        var f_s, f_name, path, f_name_new;
+
+        if(_.isObject(dep)){
+          for(var dep_key in dep) {
+            f_s = dep_key;
+            f_name_new = dep[f_s];
+          }
+        } else {
+          f_s = dep;
+        }
+
+        f_name = f_s.indexOf(basePath) === 0 ? f_s : basePath + pathSep + f_s;
+
         // If the configured paths is a map, use the path for the given file extension
         if( paths.all ) {
             path = paths.all + pathSep + key;
@@ -59,7 +73,8 @@ var installDependency = function(deps, key) {
             path = paths[getExtension(f_name)];
         }
 
-        var f_path = basePath + pathSep + path + pathSep + pathLib.basename(f_name);
+        var name = f_name_new ? f_name_new : pathLib.basename(f_name);
+        var f_path = basePath + pathSep + path + pathSep + name;
 
         // If it is a directory lets try to read from package.json file
         if( fs.lstatSync( f_name ).isDirectory() ) {
@@ -129,15 +144,14 @@ bower.commands
     .list({paths: true})
     .on('end', function (data) {
       console.log('Installing: ');
-      
-      _.each(data, function(dep, key) {
 
+      _.each(data, function(dep, key) {
           if(_.isArray(dep)) {
               _.each(dep, function(subDep) {
-                  installDependency(subDep, key); 
+                  installDependency(subDep, key);
               });
           } else {
-             installDependency(dep, key); 
+             installDependency(dep, key);
           }
       });
 
