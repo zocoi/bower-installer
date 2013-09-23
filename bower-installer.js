@@ -146,12 +146,14 @@ bower.commands
       console.log('Installing: ');
 
       _.each(data, function(dep, key) {
-          if(_.isArray(dep)) {
-              _.each(dep, function(subDep) {
-                  installDependency(subDep, key);
-              });
-          } else {
-             installDependency(dep, key);
+          if(cfg.ignore && !_.contains(cfg.ignore, key)) {
+            if(_.isArray(dep)) {
+                _.each(dep, function(subDep) {
+                    installDependency(subDep, key);
+                });
+            } else {
+               installDependency(dep, key);
+            }
           }
       });
 
