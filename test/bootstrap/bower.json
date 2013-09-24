@@ -9,17 +9,9 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-wysihtml5": "latest",
-    "bootstrap": "https://github.com/twitter/bootstrap"
+    "bootstrap": "~3.0.0"
   },
   "install": {
-    "path": "build/src",
-    "sources": {
-        "bootstrap": [
-            "bower_components/bootstrap/docs/assets/css/bootstrap.css",
-            "bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css",
-            "bower_components/bootstrap/docs/assets/js/bootstrap.js"
-        ]
-    } 
+    "path": "build/src"
   }
 }
