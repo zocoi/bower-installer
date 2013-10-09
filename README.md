@@ -165,3 +165,7 @@ Files can be ignored and not copied. Do so by adding the appropriate keys to the
 ```
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/blittle/bower-installer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
