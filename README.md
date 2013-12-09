@@ -1,4 +1,4 @@
-bower-installer
+bower-installer [![Build Status](https://travis-ci.org/blittle/bower-installer.png?branch=master)](https://travis-ci.org/blittle/bower-installer)
 ===============
 
 Tool for installing bower dependencies that won't include entire repos. Although Bower works great
