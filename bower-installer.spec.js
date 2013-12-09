@@ -3,6 +3,7 @@ var rimraf = require('rimraf');
 var fs = require('fs');
 var async = require('async');
 var exec = require('child_process').exec;
+var TIMEOUT = 10000;
 
 function expectFilesToExist(files, run) {
 	async.each(files, function(file, callback) {
@@ -46,7 +47,7 @@ describe("Bower Installer", function() {
 				'test/basic/build/src/jquery-ui/jquery-ui.js'
 			], run);			
 		});
-	});
+	}, TIMEOUT);
 
 	it('Should pass bootstrap', function(run) {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/bootstrap')}, function(err, stdout, stderr) {
@@ -61,7 +62,7 @@ describe("Bower Installer", function() {
 				'test/bootstrap/build/src/jquery/jquery.js'
 			], run);			
 		});
-	});
+	}, TIMEOUT);
 
 	it('Should pass full', function(run) {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/full')}, function(err, stdout, stderr) {
@@ -88,7 +89,7 @@ describe("Bower Installer", function() {
 				'test/full/build/src/speak.js/speakGenerator.js',
 			], run);			
 		});
-	});
+	}, TIMEOUT);
 
 	it('Should pass ignore', function(run) {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/ignore')}, function(err, stdout, stderr) {
@@ -98,7 +99,7 @@ describe("Bower Installer", function() {
 				'test/ignore/build/src/jquery/jquery.js'
 			], run);			
 		});
-	});
+	}, TIMEOUT);
 
 	it('Should pass mapping', function(run) {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/mapping')}, function(err, stdout, stderr) {
@@ -111,7 +112,7 @@ describe("Bower Installer", function() {
 				'test/mapping/build/src/jquery-ui/jquery-ui.js'
 			], run);			
 		});
-	});
+	}, TIMEOUT);
 
 	it('Should pass multiMain', function(run) {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/multiMain')}, function(err, stdout, stderr) {
@@ -121,7 +122,7 @@ describe("Bower Installer", function() {
 				'test/multiMain/build/src/datejs/time.js'
 			], run);			
 		});
-	});
+	}, TIMEOUT);
 
 	it('Should pass multiPath', function(run) {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/multiPath')}, function(err, stdout, stderr) {
@@ -132,7 +133,7 @@ describe("Bower Installer", function() {
 				'test/multiPath/build/src/buster-test.js'
 			], run);			
 		});
-	});
+	}, TIMEOUT);
 
 });
 
