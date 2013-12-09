@@ -7,7 +7,8 @@ test/full/bower_components/*
 test/full/build/*
 test/multiPath/bower_components/*
 test/multiPath/build/*
-test/multiPath/test/*
+test/multiMain/bower_components/*
+test/multiMain/build/*
 test/bootstrap/build/*
 test/bootstrap/bower_components/*
 test/ignore/bower_components/*

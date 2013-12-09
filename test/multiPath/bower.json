@@ -3,21 +3,8 @@
     "version": "2.0.0",
     "main": "./src/main/webapp/app/index.html",
     "dependencies": {
-        "jquery-ui"                 : "latest",
-        "jquery.transit"            : "latest",
-        "datejs"                    : "latest",
-        "d3"                        : "latest",
-        "backbone"                  : "latest",
-        "backbone-nested"           : "latest",
-        "requirejs"                 : "latest",
-        "underscore.string"         : "latest",
-        "json2"                     : "latest",
-        "requirejs-text"            : "latest",
-        "speak.js"                  : "latest",
         "buster.js"                 : "latest",
-        "buster-jquery-assertions"  : "latest",
-        "jquery.jscrollpane"        : "latest",
-        "jquery-mousewheel"         : "latest"
+        "buster-jquery-assertions"  : "latest"
     },
     "install": {
         "path": {
