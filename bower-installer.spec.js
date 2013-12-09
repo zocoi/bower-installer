@@ -3,7 +3,7 @@ var rimraf = require('rimraf');
 var fs = require('fs');
 var async = require('async');
 var exec = require('child_process').exec;
-var TIMEOUT = 10000;
+var TIMEOUT = 20000;
 
 function expectFilesToExist(files, run) {
 	async.each(files, function(file, callback) {
