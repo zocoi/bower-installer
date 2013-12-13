@@ -76,7 +76,7 @@ can override an existing main file path or provide a non-existant one:
 }
 ```
 If bower installer is run on this configuration, `require.js` and `backbone.js` will all appear under
-`some/path` relative to your bower.json file.
+`some/path` relative to your bower.json file. The paths within sources can use file matchers [https://github.com/isaacs/minimatch](https://github.com/isaacs/minimatch)
 
 #Install multiple main files
 For one reason or another you may want to install multiple files from a single component. You can do this by providing
