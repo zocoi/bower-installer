@@ -70,32 +70,34 @@ can override an existing main file path or provide a non-existant one:
   "install" : {
     "path" : "some/path",
     "sources" : {
-      "requirejs" : "components/requirejs/require.js"
+      "requirejs" : "bower_components/requirejs/require.js"
     }
   }
 }
 ```
 If bower installer is run on this configuration, `require.js` and `backbone.js` will all appear under
-`some/path` relative to your bower.json file. The paths within sources can use file matchers [https://github.com/isaacs/minimatch](https://github.com/isaacs/minimatch)
+`some/path` relative to your bower.json file. 
 
 #Install multiple main files
 For one reason or another you may want to install multiple files from a single component. You can do this by providing
-an `Array` instead of a `String` inside the sources hash:
+an `Array` instead of a `String` inside the sources hash. Or you can use file matchers [https://github.com/isaacs/minimatch](https://github.com/isaacs/minimatch):
 
 ```javascript
 {
   "name" : "test",
   "version": "0.1",
   "dependencies" : {
-    "jquery-ui" : "latest"
+    "jquery-ui" : "latest",
+    "datejs": "*"
   },
   "install" : {
     "path" : "some/path",
     "sources" : {
       "jquery-ui" : [
-        "components/jquery-ui/ui/jquery-ui.custom.js",
-        "components/jquery-ui/themes/start/jquery-ui.css"
-      ]
+        "bower_components/jquery-ui/ui/jquery-ui.custom.js",
+        "bower_components/jquery-ui/themes/start/jquery-ui.css"
+      ],
+      "datejs": "bower_components/datejs/build/*.*"
     }
   }
 }
