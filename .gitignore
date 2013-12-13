@@ -15,3 +15,6 @@ test/ignore/bower_components/*
 test/ignore/build/*
 test/mapping/bower_components/*
 test/mapping/build/*
+test/glob/bower_components/*
+test/glob/build/*
+

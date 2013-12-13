@@ -29,7 +29,9 @@ function expectFilesToExist(files, run) {
 		'test/multiMain/build',
 		'test/multiMain/bower_components',
 		'test/multiPath/build',
-		'test/multiPath/bower_components'
+		'test/multiPath/bower_components',
+		'test/glob/build',
+		'test/glob/bower_components'
 	], function(file, callback) {
 		rimraf(path.join(process.cwd(), file), function() {
 			callback();
@@ -135,5 +137,37 @@ describe("Bower Installer", function() {
 		});
 	}, TIMEOUT);
 
+	it('Should pass glob', function(run) {
+		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/glob')}, function(err, stdout, stderr) {
+			expect(err).toBeNull();
+			expectFilesToExist([
+				'test/glob/build/src/datejs/core.js',
+				'test/glob/build/src/datejs/date-af-ZA.js',
+				'test/glob/build/src/datejs/date-ar-AE.js',
+				'test/glob/build/src/datejs/date-ar-BH.js',
+				'test/glob/build/src/datejs/date-ar-DZ.js',
+				'test/glob/build/src/datejs/date-ar-EG.js',
+				'test/glob/build/src/datejs/date-ar-IQ.js',
+				'test/glob/build/src/datejs/date-ar-JO.js',
+				'test/glob/build/src/datejs/date-ar-KW.js',
+				'test/glob/build/src/datejs/date-ar-LB.js',
+				'test/glob/build/src/datejs/date-uz-Cyrl-UZ.js',
+				'test/glob/build/src/datejs/date-uz-Latn-UZ.js',
+				'test/glob/build/src/datejs/date-vi-VN.js',
+				'test/glob/build/src/datejs/date-xh-ZA.js',
+				'test/glob/build/src/datejs/date-zh-CN.js',
+				'test/glob/build/src/datejs/date-zh-HK.js',
+				'test/glob/build/src/datejs/date-zh-MO.js',
+				'test/glob/build/src/datejs/date-zh-SG.js',
+				'test/glob/build/src/datejs/date-zh-TW.js',
+				'test/glob/build/src/datejs/date-zu-ZA.js',
+				'test/glob/build/src/datejs/date.js',
+				'test/glob/build/src/datejs/extras.js',
+				'test/glob/build/src/datejs/parser.js',
+				'test/glob/build/src/datejs/sugarpak.js',
+				'test/glob/build/src/datejs/time.js'
+			], run);			
+		});
+	}, TIMEOUT);
 });
 
