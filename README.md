@@ -166,6 +166,11 @@ Files can be ignored and not copied. Do so by adding the appropriate keys to the
 }
 ```
 
+##Change log
+ - 0.6.1 - The commandline flag --remove or -r will remove the "bower_components" directory when installation completes.
+ - 0.6.0 - Add file globbing and a travis-ci enabled test suite.
+ - 0.5.0 - Add the ignore option
+ - 0.4.0 - Remove file-utils dependency
 
 
 
