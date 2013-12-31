@@ -169,5 +169,17 @@ describe("Bower Installer", function() {
 			], run);			
 		});
 	}, TIMEOUT);
+	
+	it('Should remove bower_components directory', function(run) {
+		exec('node ../../bower-installer.js -r', {cwd: path.join(process.cwd(), 'test/basic')}, function(err, stdout, stderr) {
+			expect(err).toBeNull();
+			expectFilesToExist([
+				'test/basic/build/src/jquery/jquery.js',
+				'test/basic/build/src/jquery-ui/jquery-ui.js'
+			], run);
+			
+			expect(fs.existsSync(path.join(process.cwd(), 'bower_components'))).toBeFalsy();
+		});
+	}, TIMEOUT);
 });
 

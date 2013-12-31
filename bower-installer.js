@@ -1,16 +1,44 @@
 #!/usr/bin/env node
 
 var _       = require('lodash'),
+    async   = require('async'),
     fileLib = require("node-fs"),
     colors  = require('colors'),
     bower   = require('bower'),
     path    = require('path'),
     utils   = require('./lib/utils'),
+    nopt    = require('nopt'),
     installer = require('./lib/installer');
 
 var basePath = process.cwd(),
     pathSep  = '/',
+    knownOpts = {
+      'remove': Boolean,
+      'help': Boolean
+    },
+    shortHands = {
+      "r": ["--remove"],
+      "h": ["--help"]
+    },
     cfg;
+
+var options = nopt(knownOpts, shortHands, process.argv, 2);
+
+if(options.help) {
+  console.log(("---------------------------------------------------------------------").blue);
+  console.log(("Bower Installer").green);
+  console.log(("---------------------------------------------------------------------").blue);
+  console.log("Tool for installing bower dependencies that won't include entire repos."); 
+  console.log("Although Bower works great as a light-weight tool to quickly install ");
+  console.log("browser dependencies, it currently does not provide much functionality ");
+  console.log("for installing specific \"built\" components for the client.");
+  console.log(("---------------------------------------------------------------------").blue);
+  console.log(("Options:").green);
+  console.log("--remove [r] - Remove the bower_components directory after execution.")
+  console.log("--help   [h] - Display this.");
+  console.log(("---------------------------------------------------------------------").blue);
+  return;
+}
 
 // Load configuration file
 try {
@@ -52,17 +80,41 @@ bower.commands
     .on('end', function (data) {
       console.log('Installing: ');
 
-      _.each(data, function(dep, key) {
+      // The callback here will cascade downwards 
+      // throughout asyncronous calls. This is necessary
+      // to determine when everything has finished.
+      async.each(_.map(data, function(dep, key) {
+        return {
+          dep: dep,
+          key: key
+        }
+      }), function(o, callback) {
+        var dep = o.dep,
+            key = o.key;
+
           if(!cfg.ignore || (cfg.ignore && !_.contains(cfg.ignore, key)) ) {
             if(_.isArray(dep)) {
-                _.each(dep, function(subDep) {
-                    installer.installDependency(subDep, key, cfg, paths);
-                });
+                async.each(dep, function(subDep, callback) {
+                    installer.installDependency(subDep, key, cfg, paths, callback);
+                }, callback);
             } else {
-               installer.installDependency(dep, key, cfg, paths);
+               installer.installDependency(dep, key, cfg, paths, callback);
             }
           } else {
             console.log(('\tIgnoring: ' + key).yellow);
+          }
+      }, function(err) {
+          if(err) console.error(('Error:').red, err);
+          else {
+            if(options.remove) {
+              process.stdout.write('Removing bower_components dir...');
+              installer.removeComponentsDir(function(err) {
+                if(err) process.stdout.write(("Error").red, err);
+                else process.stdout.write(("Finished\r\n").green);
+              })
+            } else {
+              console.log(('Success').green);
+            }
           }
       });
 
