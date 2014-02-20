@@ -5,7 +5,7 @@
     "dependencies": {
         "jquery-ui" : "latest",
         "ember-bootstrap": "https://github.com/emberjs-addons/ember-bootstrap/releases/download/01c440e23a4772f5caabe9d8e27e0b6ac9b35c6c/ember-bootstrap.js",
-        "ember-easyForm": "https://raw.github.com/dockyard/ember-builds/master/easyForm/ember-easyForm-0.3.2.js"
+        "ember-easyForm": "http://builds.dockyard.com.s3.amazonaws.com/ember-easyForm/latest/ember-easyForm.js"
     },
     "install": {
         "path": "build/src",
@@ -23,7 +23,7 @@
             },
             "ember-easyForm": {
               "mapping": [
-                {"bower_components/ember-easyForm/index.js": "ember-easyForm.js"}
+                {"bower_components/ember-easyForm/index.js": "subdirectory/ember-easyForm.js"}
               ]
             }
         }
