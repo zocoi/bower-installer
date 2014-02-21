@@ -108,7 +108,7 @@ describe("Bower Installer", function() {
 			expect(err).toBeNull();
 			expectFilesToExist([
 				'test/mapping/build/src/ember-bootstrap/ember-bootstrap.js',
-				'test/mapping/build/src/ember-easyForm/ember-easyForm.js',
+				'test/mapping/build/src/ember-easyForm/subdirectory/ember-easyForm.js',
 				'test/mapping/build/src/jquery-ui/jquery-ui-min-new-name.js',
 				'test/mapping/build/src/jquery/jquery.js',
 				'test/mapping/build/src/jquery-ui/jquery-ui.js'
