@@ -138,13 +138,14 @@ Files can be renamed when bower-installer is copying them to their new destinati
     "jquery-ui" : "latest"
   },
   "install" : {
+    "path" : "some/path",
     "sources" : {
       "jquery-ui" : {
         "mapping": [
           {"bower_components/jquery-ui/ui/jquery-ui.js": "jquery-ui.js"},
           {"bower_components/jquery-ui/ui/minified/jquery-ui.min.js": "jquery-ui-min-new-name.js"}
         ]
-      },
+      }
     }
   }
 }
