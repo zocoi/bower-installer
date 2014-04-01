@@ -167,6 +167,24 @@ Files can be ignored and not copied. Do so by adding the appropriate keys to the
 }
 ```
 
+#Benefits from glob patterns
+You can specify a folder and get all files inside it preserving its folder structure.
+ ```javascript
+{
+  "name" : "test",
+  "version": "0.1",
+  "dependencies": {
+    "datatables-bootstrap3" : "latest"
+  },
+  "install": {
+    "path": "build/src",
+    "sources" : {
+      "datatables-bootstrap3" : "bower_components/datatables-bootstrap3/BS3/assets/**"
+    }
+  }
+}
+```
+
 ##Change log
  - 0.6.1 - The commandline flag --remove or -r will remove the "bower_components" directory when installation completes.
  - 0.6.0 - Add file globbing and a travis-ci enabled test suite.
