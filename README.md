@@ -186,6 +186,7 @@ You can specify a folder and get all files inside it preserving its folder struc
 ```
 
 ##Change log
+ - 0.7.0 - Preserve folder structure when using glob patterns.
  - 0.6.1 - The commandline flag --remove or -r will remove the "bower_components" directory when installation completes.
  - 0.6.0 - Add file globbing and a travis-ci enabled test suite.
  - 0.5.0 - Add the ignore option
