@@ -93,6 +93,27 @@ describe("Bower Installer", function() {
 		});
 	}, TIMEOUT);
 
+	it('Should pass multiDirGlob', function(run) {
+		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/multiDirGlob')}, function(err, stdout, stderr) {
+			expect(err).toBeNull();
+			expectFilesToExist([
+				"test/multiDirGlob/build/src/bootstrap/css/bootstrap-theme.css",
+				"test/multiDirGlob/build/src/bootstrap/css/bootstrap-theme.css.map",
+				"test/multiDirGlob/build/src/bootstrap/css/bootstrap-theme.min.css",
+				"test/multiDirGlob/build/src/bootstrap/fonts/glyphicons-halflings-regular.eot",
+				"test/multiDirGlob/build/src/bootstrap/fonts/glyphicons-halflings-regular.svg",
+				"test/multiDirGlob/build/src/bootstrap/fonts/glyphicons-halflings-regular.ttf",
+				"test/multiDirGlob/build/src/bootstrap/fonts/glyphicons-halflings-regular.woff",
+				"test/multiDirGlob/build/src/bootstrap/js/bootstrap.min.js",
+				"test/multiDirGlob/build/src/bootstrap/js/bootstrap.js",
+				"test/multiDirGlob/build/src/bootstrap/css/bootstrap.css",
+				"test/multiDirGlob/build/src/bootstrap/css/bootstrap.min.css",
+				"test/multiDirGlob/build/src/jquery/jquery.js",
+				"test/multiDirGlob/build/src/bootstrap/css/bootstrap.css.map"
+			], run);			
+		});
+	}, TIMEOUT);
+
 	it('Should pass ignore', function(run) {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/ignore')}, function(err, stdout, stderr) {
 			expect(err).toBeNull();
