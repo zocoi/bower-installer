@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "main": "./src/main/webapp/app/index.html",
   "dependencies": {
-    "datejs": "*"
+    "datejs": "1.0.0-rc1"
   },
   "install": {
     "path": "build/src",

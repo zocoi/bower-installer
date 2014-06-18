@@ -3,7 +3,7 @@ var rimraf = require('rimraf');
 var fs = require('fs');
 var async = require('async');
 var exec = require('child_process').exec;
-var TIMEOUT = 20000;
+var TIMEOUT = 40000;
 
 function expectFilesToExist(files, run) {
 	async.each(files, function(file, callback) {
@@ -141,8 +141,7 @@ describe("Bower Installer", function() {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/multiMain')}, function(err, stdout, stderr) {
 			expect(err).toBeNull();
 			expectFilesToExist([
-				'test/multiMain/build/src/datejs/date.js',
-				'test/multiMain/build/src/datejs/time.js'
+				'test/multiMain/build/src/datejs/date.js'
 			], run);			
 		});
 	}, TIMEOUT);
@@ -162,7 +161,6 @@ describe("Bower Installer", function() {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/glob')}, function(err, stdout, stderr) {
 			expect(err).toBeNull();
 			expectFilesToExist([
-				'test/glob/build/src/datejs/core.js',
 				'test/glob/build/src/datejs/date-af-ZA.js',
 				'test/glob/build/src/datejs/date-ar-AE.js',
 				'test/glob/build/src/datejs/date-ar-BH.js',
@@ -182,11 +180,7 @@ describe("Bower Installer", function() {
 				'test/glob/build/src/datejs/date-zh-SG.js',
 				'test/glob/build/src/datejs/date-zh-TW.js',
 				'test/glob/build/src/datejs/date-zu-ZA.js',
-				'test/glob/build/src/datejs/date.js',
-				'test/glob/build/src/datejs/extras.js',
-				'test/glob/build/src/datejs/parser.js',
-				'test/glob/build/src/datejs/sugarpak.js',
-				'test/glob/build/src/datejs/time.js'
+				'test/glob/build/src/datejs/date.js'
 			], run);			
 		});
 	}, TIMEOUT);
