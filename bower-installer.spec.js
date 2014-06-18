@@ -150,9 +150,9 @@ describe("Bower Installer", function() {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/multiPath')}, function(err, stdout, stderr) {
 			expect(err).toBeNull();
 			expectFilesToExist([
-				'test/multiPath/build/src/buster-jquery-assertions.js',
-				'test/multiPath/build/css/buster-test.css',
-				'test/multiPath/build/src/buster-test.js'
+				'test/multiPath/build/src/buster-jquery-assertions/buster-jquery-assertions.js',
+				'test/multiPath/build/css/buster.js/buster-test.css',
+				'test/multiPath/build/src/buster.js/buster-test.js'
 			], run);			
 		});
 	}, TIMEOUT);

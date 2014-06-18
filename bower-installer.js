@@ -8,17 +8,20 @@ var _       = require('lodash'),
     path    = require('path'),
     utils   = require('./lib/utils'),
     nopt    = require('nopt'),
+    fs      = require('fs'),
     installer = require('./lib/installer');
 
 var basePath = process.cwd(),
     pathSep  = '/',
     knownOpts = {
       'remove': Boolean,
-      'help': Boolean
+      'help': Boolean,
+      'keep': Boolean
     },
     shortHands = {
       "r": ["--remove"],
-      "h": ["--help"]
+      "h": ["--help"],
+      "k": ["--keep"]
     },
     cfg;
 
@@ -62,8 +65,13 @@ var installPathFiles =  _.map( paths,
 process.stdout.write('Setting up install paths...');
 
 _.each(installPathFiles, function(file) {
+  if(!options.keep) {
     utils.deleteFolderRecursive(file);
+  }
+
+  if(!fs.existsSync(file)) {
     fileLib.mkdirSync(file, 0755, true);
+  }
 });
 
 process.stdout.write(("Finished\r\n").green);
