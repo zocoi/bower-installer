@@ -169,7 +169,8 @@ Files can be ignored and not copied. Do so by adding the appropriate keys to the
 
 #Benefits from glob patterns
 You can specify a folder and get all files inside it preserving its folder structure.
- ```javascript
+
+```javascript
 {
   "name" : "test",
   "version": "0.1",
@@ -177,7 +178,10 @@ You can specify a folder and get all files inside it preserving its folder struc
     "datatables-bootstrap3" : "latest"
   },
   "install": {
-    "path": "build/src",
+    "path": {
+      "scss": "build/styles",
+      "js": "build/js"
+    }
     "sources" : {
       "datatables-bootstrap3" : "bower_components/datatables-bootstrap3/BS3/assets/**"
     }
