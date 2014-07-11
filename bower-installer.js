@@ -11,7 +11,7 @@ var _       = require('lodash'),
     fs      = require('fs'),
     installer = require('./lib/installer');
 
-var basePath = process.cwd(),
+var basePath = process.cwd(),g
     pathSep  = '/',
     knownOpts = {
       'remove': Boolean,
@@ -125,7 +125,7 @@ bower.commands
           }
       }, function(err) {
           if(err) {
-              if !(options.silent) {
+              if (!options.silent) {
                   console.error(('Error:').red, err);
               }
           } else {
@@ -134,8 +134,13 @@ bower.commands
                   process.stdout.write('Removing bower_components dir...');
               }
               installer.removeComponentsDir(function(err) {
-                if(err) process.stdout.write(("Error").red, err);
-                else process.stdout.write(("Finished\r\n").green);
+                if (!options.silent) {
+                    if(err) {
+                        process.stdout.write(("Error").red, err);
+                    } else {
+                        process.stdout.write(("Finished\r\n").green);
+                    }
+                }
               })
             } else {
               if (!options.silent) {
