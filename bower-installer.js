@@ -113,10 +113,10 @@ bower.commands
           if(!cfg.ignore || (cfg.ignore && !_.contains(cfg.ignore, key)) ) {
             if(_.isArray(dep)) {
                 async.each(dep, function(subDep, callback) {
-                    installer.installDependency(subDep, key, cfg, paths, callback);
+                    installer.installDependency(subDep, key, cfg, paths, options.silent, callback);
                 }, callback);
             } else {
-               installer.installDependency(dep, key, cfg, paths, callback);
+               installer.installDependency(dep, key, cfg, paths, options.silent, callback);
             }
           } else {
             if (!options.silent) {
