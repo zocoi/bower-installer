@@ -11,7 +11,7 @@ var _       = require('lodash'),
     fs      = require('fs'),
     installer = require('./lib/installer');
 
-var basePath = process.cwd(),g
+var basePath = process.cwd(),
     pathSep  = '/',
     knownOpts = {
       'remove': Boolean,
