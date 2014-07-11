@@ -16,7 +16,8 @@ var basePath = process.cwd(),
     knownOpts = {
       'remove': Boolean,
       'help': Boolean,
-      'keep': Boolean
+      'keep': Boolean,
+      'silent': Boolean
     },
     shortHands = {
       "r": ["--remove"],
