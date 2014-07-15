@@ -6,7 +6,7 @@
   "main": "bower-installer.js",
   "dependencies": {
     "node-fs": "~0.1.7",
-    "bower": "~1.2.8",
+    "bower": "~1.3.8",
     "colors": "~0.6.0-1",
     "lodash": "~0.9.1",
     "glob": "~3.2.7",
