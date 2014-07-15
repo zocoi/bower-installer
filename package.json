@@ -1,6 +1,6 @@
 {
   "name": "bower-installer",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "preferGlobal": "true",
   "description": "Tool for installing bower dependencies that won't include entire repos",
   "main": "bower-installer.js",
