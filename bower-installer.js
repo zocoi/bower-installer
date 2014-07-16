@@ -51,8 +51,9 @@ try {
 }
 
 if(!cfg || !cfg.path) {
-    console.log(("bower-installer error").red + " bower.json must contain a valid install path");
-    return;
+    //console.log(("bower-installer error").red + " bower.json must contain a valid install path");
+    //return;
+	cfg = basePath;
 }
 
 var paths = _.isString(cfg.path) ? {all: cfg.path} : cfg.path;
