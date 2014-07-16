@@ -45,18 +45,19 @@ if(options.help) {
 
 // Load configuration file
 try {
-    cfg = require(path.join(basePath,'bower.json')).install;
+    cfg = require(path.join(basePath,'bower.json')).install;	
 } catch(e) {
     cfg = require(path.join(basePath,'component.json')).install;
 }
 
 if(!cfg || !cfg.path) {
-    //console.log(("bower-installer error").red + " bower.json must contain a valid install path");
+    console.log(("bower-installer error").red + " bower.json must contain a valid install path");
     //return;
-	cfg = basePath;
+	cfg.path = basePath;	
 }
 
 var paths = _.isString(cfg.path) ? {all: cfg.path} : cfg.path;
+//var paths = _.isString(cfg.path) ? cfg.path : {all: cfg.path};
 
 var installPathFiles =  _.map( paths,
     function(path) {
