@@ -45,34 +45,33 @@ if(options.help) {
 
 // Load configuration file
 try {
-    cfg = require(path.join(basePath,'bower.json')).install;
+    cfg = require(path.join(basePath,'bower.json')).install;	
 } catch(e) {
     cfg = require(path.join(basePath,'component.json')).install;
 }
-
-if(!cfg || !cfg.path) {
-    console.log(("bower-installer error").red + " bower.json must contain a valid install path");
-    return;
-}
-
-var paths = _.isString(cfg.path) ? {all: cfg.path} : cfg.path;
-
-var installPathFiles =  _.map( paths,
-    function(path) {
-        return (basePath + pathSep + path);
-    });
+var paths;
+var installPathFiles;
 
 process.stdout.write('Setting up install paths...');
 
-_.each(installPathFiles, function(file) {
-  if(!options.keep) {
-    utils.deleteFolderRecursive(file);
-  }
-
-  if(!fs.existsSync(file)) {
-    fileLib.mkdirSync(file, 0755, true);
-  }
-});
+if(!cfg || !cfg.path) {    	
+	paths = "default";
+	installPathFiles = _.map(paths,basePath);		
+}else{
+	paths = _.isString(cfg.path) ? {all: cfg.path} : cfg.path;
+	installPathFiles =  _.map( paths,
+		function(path) {
+			return (basePath + pathSep + path);
+		});
+	_.each(installPathFiles, function(file) {
+	  if(!options.keep) {
+		utils.deleteFolderRecursive(file);
+	  }
+	  if(!fs.existsSync(file)) {
+		fileLib.mkdirSync(file, 0755, true);
+	  }
+	});		
+}
 
 process.stdout.write(("Finished\r\n").green);
 
