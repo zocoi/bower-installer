@@ -6,9 +6,6 @@
         "jquery-ui" : "latest"
     },
     "install": {
-        "path": "build/src",
-        "sources": {
-            "jquery-ui" : "bower_components/jquery-ui/ui/jquery-ui.js"
-        }
+        "path": "build/src"
     }
 }
