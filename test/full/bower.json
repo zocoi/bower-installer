@@ -27,8 +27,7 @@
             "jquery.transit"     : "bower_components/jquery.transit/jquery.transit.js",
             "json2"              : "bower_components/json2/json2.js",
             "requirejs"          : "bower_components/requirejs/require.js",
-            "underscore.string"  : "bower_components/underscore.string/dist/underscore.string.min.js",
-            "jquery-ui"          : "bower_components/jquery-ui/ui/jquery-ui.js"
+            "underscore.string"  : "bower_components/underscore.string/dist/underscore.string.min.js"
         }
     }
 }

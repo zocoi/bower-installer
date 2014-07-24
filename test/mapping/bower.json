@@ -10,12 +10,6 @@
     "install": {
         "path": "build/src",
         "sources": {
-            "jquery-ui" : {
-              "mapping": [
-                {"bower_components/jquery-ui/ui/jquery-ui.js": "jquery-ui.js"},
-                {"bower_components/jquery-ui/ui/minified/jquery-ui.min.js": "jquery-ui-min-new-name.js"}
-              ]
-            },
             "ember-bootstrap": {
               "mapping": [
                 {"bower_components/ember-bootstrap/index.js": "ember-bootstrap.js"}

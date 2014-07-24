@@ -4,7 +4,14 @@ module.exports = function(grunt) {
 grunt.initConfig({
   pkg: grunt.file.readJSON('package.json'),
   jasmine_node: {
-    defaultTimeoutInterval: 100
+    options: {
+      forceExit: true,
+      match: '.',
+      matchall: false,
+      extensions: 'js',
+      specNameMatcher: 'spec'
+    },
+    all: ['./']
   }
 });
 
