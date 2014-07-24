@@ -16,12 +16,14 @@ var basePath = process.cwd(),
     knownOpts = {
       'remove': Boolean,
       'help': Boolean,
-      'keep': Boolean
+      'keep': Boolean,
+      'silent': Boolean
     },
     shortHands = {
       "r": ["--remove"],
       "h": ["--help"],
-      "k": ["--keep"]
+      "k": ["--keep"],
+      "s": ["--silent"]
     },
     cfg;
 
@@ -52,7 +54,9 @@ try {
 var paths;
 var installPathFiles;
 
-process.stdout.write('Setting up install paths...');
+if (!options.silent) {
+    process.stdout.write('Setting up install paths...');
+}
 
 if(!cfg || !cfg.path) {    	
 	paths = "default";
@@ -73,19 +77,25 @@ if(!cfg || !cfg.path) {
 	});		
 }
 
-process.stdout.write(("Finished\r\n").green);
+if (!options.silent) {
+    process.stdout.write(("Finished\r\n").green);
 
-process.stdout.write('Running bower install...');
+    process.stdout.write('Running bower install...');
+}
 
 bower.commands
 .install()
 .on('end', function (installed) {
-  process.stdout.write(("Finished\r\n").green);
+  if (!options.silent) {
+      process.stdout.write(("Finished\r\n").green);
+  }
 
   bower.commands
     .list({paths: true})
     .on('end', function (data) {
-      console.log('Installing: ');
+      if (!options.silent) {
+          console.log('Installing: ');
+      }
 
       // The callback here will cascade downwards 
       // throughout asyncronous calls. This is necessary
@@ -102,36 +112,54 @@ bower.commands
           if(!cfg.ignore || (cfg.ignore && !_.contains(cfg.ignore, key)) ) {
             if(_.isArray(dep)) {
                 async.each(dep, function(subDep, callback) {
-                    installer.installDependency(subDep, key, cfg, paths, callback);
+                    installer.installDependency(subDep, key, cfg, paths, options.silent, callback);
                 }, callback);
             } else {
-               installer.installDependency(dep, key, cfg, paths, callback);
+               installer.installDependency(dep, key, cfg, paths, options.silent, callback);
             }
           } else {
-            console.log(('\tIgnoring: ' + key).yellow);
+            if (!options.silent) {
+                console.log(('\tIgnoring: ' + key).yellow);
+            }
           }
       }, function(err) {
-          if(err) console.error(('Error:').red, err);
-          else {
+          if(err) {
+              if (!options.silent) {
+                  console.error(('Error:').red, err);
+              }
+          } else {
             if(options.remove) {
-              process.stdout.write('Removing bower_components dir...');
+              if (!options.silent) {
+                  process.stdout.write('Removing bower_components dir...');
+              }
               installer.removeComponentsDir(function(err) {
-                if(err) process.stdout.write(("Error").red, err);
-                else process.stdout.write(("Finished\r\n").green);
+                if (!options.silent) {
+                    if(err) {
+                        process.stdout.write(("Error").red, err);
+                    } else {
+                        process.stdout.write(("Finished\r\n").green);
+                    }
+                }
               })
             } else {
-              console.log(('Success').green);
+              if (!options.silent) {
+                  console.log(('Success').green);
+              }
             }
           }
       });
 
     })
     .on('error', function(error) {
-      console.error(error);
+      if (!options.silent) {
+          console.error(error);
+      }
     });
 
 })
 .on('error', function(error) {
-  process.stdout.write(("Error\r\n").red);
-  console.error(error);
+  if (!options.silent) {
+      process.stdout.write(("Error\r\n").red);
+      console.error(error);
+  }
 });
