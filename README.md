@@ -190,6 +190,9 @@ You can specify a folder and get all files inside it preserving its folder struc
 ```
 
 ##Change log
+ - 0.8.4 - Add silent option to avoid console.log output. #58
+ - 0.8.3 - Path can now be blank, allowing for install into root of project. #59
+ - 0.8.2 - Upgrade bower to fix underlying bugs.
  - 0.8.0 - Add an option for not removing the destination directories (--keep or -k). Preserve folder structures per extensions issue https://github.com/blittle/bower-installer/pull/52
  - 0.7.0 - Preserve folder structure when using glob patterns.
  - 0.6.1 - The commandline flag --remove or -r will remove the "bower_components" directory when installation completes.
