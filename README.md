@@ -120,8 +120,8 @@ Files can be installed to multiple locations based upon file type. Do so by modi
     },
     "sources" : {
       "jquery-ui" : [
-        "components/jquery-ui/ui/jquery-ui.custom.js",
-        "components/jquery-ui/themes/start/jquery-ui.css"
+        "bower_components/jquery-ui/ui/jquery-ui.custom.js",
+        "bower_components/jquery-ui/themes/start/jquery-ui.css"
       ]
     }
   }
