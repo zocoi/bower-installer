@@ -49,7 +49,11 @@ if(options.help) {
 try {
     cfg = require(path.join(basePath,'bower.json')).install;	
 } catch(e) {
-    cfg = require(path.join(basePath,'component.json')).install;
+    try {
+        cfg = require(path.join(basePath,'component.json')).install;
+    } catch(e) {
+    	throw createError('Neither bower.json nor component.json present', 'ENOENT');
+    }
 }
 var paths;
 var installPathFiles;

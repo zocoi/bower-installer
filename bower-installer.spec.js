@@ -50,7 +50,6 @@ describe("Bower Installer", function() {
 			], run);			
 		});
 	}, TIMEOUT);
-
 	it('Should pass bootstrap', function(run) {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/bootstrap')}, function(err, stdout, stderr) {
 			expect(err).toBeNull();
@@ -193,6 +192,14 @@ describe("Bower Installer", function() {
 			], run);
 			
 			expect(fs.existsSync(path.join(process.cwd(), 'bower_components'))).toBeFalsy();
+		});
+	}, TIMEOUT);
+	it('Should pass multiDirGlobWithSameNestedFolder', function(run) {
+		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/multiDirGlobWithSameNestedFolder')}, function(err, stdout, stderr) {
+			expect(err).toBeNull();
+			expectFilesToExist([
+				"test/multiDirGlobWithSameNestedFolder/build/src/ace/lib/oop.js"
+			], run);
 		});
 	}, TIMEOUT);
 });
