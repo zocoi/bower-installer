@@ -31,7 +31,9 @@ function expectFilesToExist(files, run) {
 		'test/multiPath/build',
 		'test/multiPath/bower_components',
 		'test/glob/build',
-		'test/glob/bower_components'
+		'test/glob/bower_components',
+		'test/keyword/build',
+		'test/keyword/bower_components'
 	], function(file, callback) {
 		rimraf(path.join(process.cwd(), file), function() {
 			callback();
@@ -200,6 +202,21 @@ describe("Bower Installer", function() {
 			expectFilesToExist([
 				"test/multiDirGlobWithSameNestedFolder/build/src/ace/lib/oop.js"
 			], run);
+		});
+	}, TIMEOUT);
+
+	it('Should pass keyword', function(run) {
+		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/keyword')}, function(err, stdout, stderr) {
+			expect(err).toBeNull();
+			expectFilesToExist([
+				'test/keyword/build/bootstrap/css/bootstrap.css',
+				'test/keyword/build/bootstrap/fonts/glyphicons-halflings-regular.eot',
+				'test/keyword/build/bootstrap/fonts/glyphicons-halflings-regular.svg',
+				'test/keyword/build/bootstrap/fonts/glyphicons-halflings-regular.ttf',
+				'test/keyword/build/bootstrap/fonts/glyphicons-halflings-regular.woff',
+				'test/keyword/build/bootstrap/js/bootstrap.js',
+				'test/keyword/build/jquery/js/jquery.js'
+			], run);			
 		});
 	}, TIMEOUT);
 });
