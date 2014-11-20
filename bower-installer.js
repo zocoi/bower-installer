@@ -16,13 +16,13 @@ var basePath = process.cwd(),
     knownOpts = {
       'remove': Boolean,
       'help': Boolean,
-      'keep': Boolean,
+      'remove_install_path': Boolean,
       'silent': Boolean
     },
     shortHands = {
       "r": ["--remove"],
       "h": ["--help"],
-      "k": ["--keep"],
+      "p": ["--remove-install-path"],
       "s": ["--silent"]
     },
     cfg;
@@ -40,6 +40,7 @@ if(options.help) {
   console.log(("---------------------------------------------------------------------").blue);
   console.log(("Options:").green);
   console.log("--remove [r] - Remove the bower_components directory after execution.")
+  console.log("--remove-install-path [p] - Remove the install destination paths before installing dependencies.")
   console.log("--help   [h] - Display this.");
   console.log(("---------------------------------------------------------------------").blue);
   return;
@@ -77,11 +78,11 @@ if(!cfg || !cfg.path) {
   			return (basePath + pathSep + path);
   		});
   	_.each(installPathFiles, function(file) {
-  	  if(!options.keep) {
-  		utils.deleteFolderRecursive(file);
+  	  if(options['remove-install-path']) {
+        utils.deleteFolderRecursive(file);
   	  }
   	  if(!fs.existsSync(file)) {
-  		fileLib.mkdirSync(file, 0755, true);
+        fileLib.mkdirSync(file, 0755, true);
   	  }
   	});
   }	
