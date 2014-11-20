@@ -10,12 +10,12 @@
     "install": {
         "base":  "build",
         "path" : {
-            "js": "%(key)s/js",
-            "css": "%(key)s/css",
-            "eot": "%(key)s/fonts",
-            "svg": "%(key)s/fonts",
-            "ttf": "%(key)s/fonts",
-            "woff": "%(key)s/fonts"
+            "js": "{name}/js",
+            "css": "{name}/css",
+            "eot": "{name}/fonts",
+            "svg": "{name}/fonts",
+            "ttf": "{name}/fonts",
+            "woff": "{name}/fonts"
         }       
     }
 }

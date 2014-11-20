@@ -19,4 +19,7 @@ test/multiDirGlob/bower_components/*
 test/multiDirGlob/build/*
 test/glob/bower_components/*
 test/glob/build/*
-
+test/keyword/build
+test/keyword/bower_components
+test/multiDirGlobWithSameNestedFolder/build
+test/multiDirGlobWithSameNestedFolder/bower_components

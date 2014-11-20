@@ -128,13 +128,47 @@ Files can be installed to multiple locations based upon file type. Do so by modi
 }
 ```
 
+###Configurable paths
+Paths can be custom configurable with variables (currently only the package name is supported):
+```javascript
+{
+    "name": "test",
+    "version": "0.0.2",
+    "dependencies": {
+        "bootstrap": "~3.0.3"
+    },
+    "install": {
+        "base":  "build",
+        "path" : {
+            "js": "{name}/js",
+            "css": "{name}/css",
+            "eot": "{name}/fonts",
+            "svg": "{name}/fonts",
+            "ttf": "{name}/fonts",
+            "woff": "{name}/fonts"
+        }       
+    }
+}
+```
+
+Will create this output structure:
+```
+dist/external
+    bootstrap/
+      js
+      css
+      fonts
+      jquery
+      js
+```
+
 #Rename files during copy
 Files can be renamed when bower-installer is copying them to their new destination. Do so by modifying the `mapping` object. Example:
  ```javascript
 {
   "name" : "test",
   "version": "0.1",
-  "dependencies" : {
+  "dependencies/" : {
     "jquery-ui" : "latest"
   },
   "install" : {
@@ -152,7 +186,7 @@ Files can be renamed when bower-installer is copying them to their new destinati
 ```
 
 #Ignore files
-Files can be ignored and not copied. Do so by adding the appropriate keys to the `ignore` array. In the following example, `ember-model` has as dependency on `ember` and `handlebars`, so normally `ember` and the `handlebars` js files would be copied but in this case we don't want them copied over. Example:
+Files can be ignored and not copied. Do so by adding the appropriate  to the `ignore` array. In the following example, `ember-model` has as dependency on `ember` and `handlebars`, so normally `ember` and the `handlebars` js files would be copied but in this case we don't want them copied over. Example:
  ```javascript
 {
   "name" : "test",
