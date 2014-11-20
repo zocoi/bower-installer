@@ -224,6 +224,9 @@ You can specify a folder and get all files inside it preserving its folder struc
 ```
 
 ##Change log
+ - 1.0.0 - Breaking API changes, --keep flag removed in favor of --remove-install-path or -p - https://github.com/blittle/bower-installer/issues/53
+         - Destination paths configurable - https://github.com/blittle/bower-installer/pull/70
+         - Fixes https://github.com/blittle/bower-installer/pull/83, https://github.com/blittle/bower-installer/pull/78, https://github.com/blittle/bower-installer/pull/76
  - 0.8.4 - Add silent option to avoid console.log output. --silent or -s closes #58
  - 0.8.3 - Path can now be blank, allowing for install into root of project. fixes #59
  - 0.8.2 - Upgrade bower to fix underlying bugs.
