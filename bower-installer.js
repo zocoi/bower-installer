@@ -67,18 +67,24 @@ if(!cfg || !cfg.path) {
 	installPathFiles = _.map(paths,basePath);		
 }else{
 	paths = _.isString(cfg.path) ? {all: cfg.path} : cfg.path;
-	installPathFiles =  _.map( paths,
-		function(path) {
-			return (basePath + pathSep + path);
-		});
-	_.each(installPathFiles, function(file) {
-	  if(!options.keep) {
-		utils.deleteFolderRecursive(file);
-	  }
-	  if(!fs.existsSync(file)) {
-		fileLib.mkdirSync(file, 0755, true);
-	  }
-	});		
+
+  if (cfg.base !== undefined) {
+    _.each(paths, function(path, key) { paths[key] = cfg.base + pathSep + path; });
+  
+  } else {
+  	installPathFiles =  _.map( paths,
+  		function(path) {
+  			return (basePath + pathSep + path);
+  		});
+  	_.each(installPathFiles, function(file) {
+  	  if(!options.keep) {
+  		utils.deleteFolderRecursive(file);
+  	  }
+  	  if(!fs.existsSync(file)) {
+  		fileLib.mkdirSync(file, 0755, true);
+  	  }
+  	});
+  }	
 }
 
 if (!options.silent) {
