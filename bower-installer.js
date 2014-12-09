@@ -132,6 +132,7 @@ bower.commands
           if (!pakcfg) {
             pakcfg = {name: key};
           }
+          pakcfg.key = key;
 
           if(!cfg.ignore || (cfg.ignore && !_.contains(cfg.ignore, key)) ) {
             if(_.isArray(dep)) {
