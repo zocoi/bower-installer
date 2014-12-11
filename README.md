@@ -5,8 +5,6 @@ Tool for installing bower dependencies that won't include entire repos. Although
 as a light-weight tool to quickly install browser dependencies, it currently does not provide much
 functionality for installing specific "built" components for the client.
 
-NOTE: Changed with v0.4.0 bower-installer will automatically run `bower install` before moving files around.
-
 #Bower installs entire repositories
 
 ```javascript
