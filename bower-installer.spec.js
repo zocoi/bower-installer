@@ -209,13 +209,12 @@ describe("Bower Installer", function() {
 		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/keyword')}, function(err, stdout, stderr) {
 			expect(err).toBeNull();
 			expectFilesToExist([
-				'test/keyword/build/bootstrap/css/bootstrap.css',
-				'test/keyword/build/bootstrap/fonts/glyphicons-halflings-regular.eot',
-				'test/keyword/build/bootstrap/fonts/glyphicons-halflings-regular.svg',
-				'test/keyword/build/bootstrap/fonts/glyphicons-halflings-regular.ttf',
-				'test/keyword/build/bootstrap/fonts/glyphicons-halflings-regular.woff',
-				'test/keyword/build/bootstrap/js/bootstrap.js',
-				'test/keyword/build/jquery/js/jquery.js'
+				'test/keyword/build/bootstrap/3.0.3/css/bootstrap.css',
+				'test/keyword/build/bootstrap/3.0.3/fonts/glyphicons-halflings-regular.eot',
+				'test/keyword/build/bootstrap/3.0.3/fonts/glyphicons-halflings-regular.svg',
+				'test/keyword/build/bootstrap/3.0.3/fonts/glyphicons-halflings-regular.ttf',
+				'test/keyword/build/bootstrap/3.0.3/fonts/glyphicons-halflings-regular.woff',
+				'test/keyword/build/bootstrap/3.0.3/js/bootstrap.js'
 			], run);			
 		});
 	}, TIMEOUT);

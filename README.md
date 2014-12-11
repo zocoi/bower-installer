@@ -129,7 +129,7 @@ Files can be installed to multiple locations based upon file type. Do so by modi
 ```
 
 ###Configurable paths
-Paths can be custom configurable with variables (currently only the package name is supported):
+Paths can be custom configurable with variables (key, name and version):
 ```javascript
 {
     "name": "test",
@@ -153,12 +153,12 @@ Paths can be custom configurable with variables (currently only the package name
 
 Will create this output structure:
 ```
-dist/external
+dist/
     bootstrap/
       js
       css
       fonts
-      jquery
+    jquery
       js
 ```
 

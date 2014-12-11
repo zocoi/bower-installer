@@ -8,14 +8,14 @@
     },
 
     "install": {
-        "base":  "build",
+        "__base":  "build",
         "path" : {
-            "js": "{name}/js",
-            "css": "{name}/css",
-            "eot": "{name}/fonts",
-            "svg": "{name}/fonts",
-            "ttf": "{name}/fonts",
-            "woff": "{name}/fonts"
+            "js": "build/{name}/{version}/js",
+            "css": "build/{name}/{version}/css",
+            "eot": "build/{name}/{version}/fonts",
+            "svg": "build/{name}/{version}/fonts",
+            "ttf": "build/{name}/{version}/fonts",
+            "woff": "build/{name}/{version}/fonts"
         }       
     }
 }

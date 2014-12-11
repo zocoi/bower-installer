@@ -78,12 +78,19 @@ if(!cfg || !cfg.path) {
   			return (basePath + pathSep + path);
   		});
   	_.each(installPathFiles, function(file) {
-  	  if(options['remove-install-path']) {
-        utils.deleteFolderRecursive(file);
-  	  }
-  	  if(!fs.existsSync(file)) {
-        fileLib.mkdirSync(file, 0755, true);
-  	  }
+
+      // if file path has variables like {name} do not create/delete folder
+      // the folder will be created later in the installer
+      if (!utils.hasVariableInPath(file)) {
+
+        if(options['remove-install-path']) {
+          utils.deleteFolderRecursive(file);
+        }
+
+        if(!fs.existsSync(file)) {
+          fileLib.mkdirSync(file, 0755, true);
+        }
+      }
   	});
   }	
 }
@@ -120,13 +127,20 @@ bower.commands
         var dep = o.dep,
             key = o.key;
 
+          var keypath = basePath + pathSep + bower.config.directory + pathSep + key;
+          var pakcfg = utils.getJSON(keypath, pathSep);
+          if (!pakcfg) {
+            pakcfg = {name: key};
+          }
+          pakcfg.key = key;
+
           if(!cfg.ignore || (cfg.ignore && !_.contains(cfg.ignore, key)) ) {
             if(_.isArray(dep)) {
                 async.each(dep, function(subDep, callback) {
-                    installer.installDependency(subDep, key, cfg, paths, options.silent, callback);
+                    installer.installDependency(subDep, pakcfg, cfg, paths, options.silent, callback);
                 }, callback);
             } else {
-               installer.installDependency(dep, key, cfg, paths, options.silent, callback);
+               installer.installDependency(dep, pakcfg, cfg, paths, options.silent, callback);
             }
           } else {
             if (!options.silent) {
