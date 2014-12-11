@@ -153,7 +153,7 @@ Paths can be custom configurable with variables (key, name and version):
 
 Will create this output structure:
 ```
-dist/
+build/
     bootstrap/
       js
       css
@@ -224,6 +224,7 @@ You can specify a folder and get all files inside it preserving its folder struc
 ```
 
 ##Change log
+ - 1.1.0 - Updates to the configuration key API allowing {key}, {version}, and {name}. Also do not require a base path parameter. Thank you to [@kimus](http://github.com/blittle/bower-installer/pull/96)!
  - 1.0.0 - Breaking API changes, --keep flag removed in favor of --remove-install-path or -p - [#53](https://github.com/blittle/bower-installer/issues/53)
          - Destination paths configurable - [#70](https://github.com/blittle/bower-installer/pull/70)
          - Fixes [#83](https://github.com/blittle/bower-installer/pull/83), [#78](https://github.com/blittle/bower-installer/pull/78), [#76](https://github.com/blittle/bower-installer/pull/76)
