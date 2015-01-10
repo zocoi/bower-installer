@@ -102,7 +102,7 @@ an `Array` instead of a `String` inside the sources hash. Or you can use file ma
 ```
 
 #Install files to multiple locations
-Files can be installed to multiple locations based upon file type. Do so by modifying the `path` to be a map of file-type
+Files can be installed to multiple locations based upon file type or regular expression. Do so by modifying the `path` to be a map of file-type
  locations. Example:
  ```javascript
 {
@@ -114,7 +114,8 @@ Files can be installed to multiple locations based upon file type. Do so by modi
   "install" : {
     "path" : {
       "css": "src/css",
-      "js": "src/js"
+      "js": "src/js",
+      "/[sc|le]ss$/": "src/css"
     },
     "sources" : {
       "jquery-ui" : [
@@ -222,6 +223,7 @@ You can specify a folder and get all files inside it preserving its folder struc
 ```
 
 ##Change log
+ - 1.2.0 - Allow matching by a regular expression instead of just file extension. Thank you to [@g105b](https://github.com/blittle/bower-installer/pull/101)
  - 1.1.0 - Updates to the configuration key API allowing {key}, {version}, and {name}. Also do not require a base path parameter. Thank you to [@kimus](http://github.com/blittle/bower-installer/pull/96)!
  - 1.0.0 - Breaking API changes, --keep flag removed in favor of --remove-install-path or -p - [#53](https://github.com/blittle/bower-installer/issues/53)
          - Destination paths configurable - [#70](https://github.com/blittle/bower-installer/pull/70)
