@@ -218,5 +218,19 @@ describe("Bower Installer", function() {
 			], run);			
 		});
 	}, TIMEOUT);
+
+	it('Should pass regExp', function(run) {
+		exec('node ../../bower-installer.js', {cwd: path.join(process.cwd(), 'test/regExp')}, function(err, stdout, stderr) {
+			expect(err).toBeNull();
+			expectFilesToExist([
+				'test/regExp/build/src/Asset/Lib/flair/Font/ubuntu-r-webfont.woff',
+				'test/regExp/build/src/Asset/Lib/flair/Font/ubuntu-r-webfont.woff2',
+				'test/regExp/build/src/Asset/Lib/flair/Font/ubuntu-r-webfont.eot',
+				'test/regExp/build/src/Asset/Lib/flair/Font/ubuntu-r-webfont.ttf',
+				'test/regExp/build/src/Asset/Lib/flair/Font/ubuntu.font.css',
+				'test/regExp/build/src/Style/Lib/flair/base.scss',
+			], run);
+		});
+	}, TIMEOUT);
 });
 
