@@ -23,3 +23,6 @@ test/keyword/build
 test/keyword/bower_components
 test/multiDirGlobWithSameNestedFolder/build
 test/multiDirGlobWithSameNestedFolder/bower_components
+test/regExp/bower_components/
+test/regExp/build/
+test/regExp/UFL.txt

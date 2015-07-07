@@ -2,7 +2,7 @@
 
 var _       = require('lodash'),
     async   = require('async'),
-    fileLib = require("node-fs"),
+    fileLib = require('node-fs'),
     colors  = require('colors'),
     bower   = require('bower'),
     path    = require('path'),
@@ -53,7 +53,7 @@ try {
     try {
         cfg = require(path.join(basePath,'component.json')).install;
     } catch(e) {
-    	throw createError('Neither bower.json nor component.json present', 'ENOENT');
+    	throw new Error('Neither bower.json nor component.json present');
     }
 }
 var paths;
